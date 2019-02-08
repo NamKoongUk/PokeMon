@@ -1,10 +1,13 @@
 package run;
 
+import view.MainFrame;
+
 public class Run {
 
 	public static void main(String[] args) {
-		System.out.println("java java boja");
 
+		new MainFrame();
+		
 	}
 
 }
