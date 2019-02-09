@@ -1,11 +1,6 @@
 package view;
 
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 public class MainFrame extends JFrame{
 
