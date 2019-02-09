@@ -7,17 +7,18 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
-class Map extends JPanel implements Runnable, 
-KeyListener{
-
+class Map extends JPanel implements Runnable, KeyListener {
+	
+	private MainFrame mf;
+	private Map m;
+	private NewPage np;
+	private PInfoPage pip;
+	private UserMenuPage ump;
+	
 	boolean keyUp = false;
 	boolean keyDown = false;
 	boolean keyLeft = false;
@@ -39,24 +40,27 @@ KeyListener{
 	int x, y; // 케릭터의 현재 좌표를 받을 변수
 	int cnt; //무한 루프를 카운터 하기 위한 변수
 	int moveStatus; //케릭터가 어디를 바라보는지 방향을 받을 변수
-	int num=0;
-	int ctn=0;
-
-	private MainFrame mf;
+	int num = 0;
+	boolean onOff;
 
 	public Map(MainFrame mf) {
-		this.mf = mf;
 		
+		System.out.println("맵 클래스 실행...");
+		
+		this.mf = mf;
+		this.m = this;
+		this.ump = new UserMenuPage(mf, m);
+		//this.pip = new PInfoPage(mf,m);
+		//np = new NewPage(mf, m);
+		
+		onOff = true;
+		
+		this.setVisible(true);
+		this.setSize(1024,768);
 		this.setBounds(0,0,1024,768);
 		init();
 		start();
-		//JLabel l1 = new JLabel(new ImageIcon(map));
-		//this.add(l1);
-
-		/* JPanel panel = new JPanel();
-      panel.setBackground(Color.blue);
-      this.add(panel);
-      this.setComponentZOrder(panel, 1);*/
+		
 		Dimension screen = tk.getScreenSize();
 
 		int xpos = (int)(screen.getWidth() / 2 - getWidth() / 2);
@@ -66,9 +70,6 @@ KeyListener{
 		mf.add(this);
 		
 	}
-
-
-
 
 	public void init(){
 		x = 100;
@@ -81,6 +82,7 @@ KeyListener{
 	}
 
 	public void start(){ // 기본적인 명령처리
+		System.out.println("스타트");
 		mf.addKeyListener(this);
 		th = new Thread(this);
 		th.start();
@@ -88,34 +90,41 @@ KeyListener{
 
 	public void run(){ // 스레드 메소드, 무한 루프
 		while(true){
+			System.out.println("무한루프");
 			try{
 				keyProcess();
-
-
 				repaint();
-
-
 
 				Thread.sleep(20);
 				cnt++;
-
-			}catch(Exception e){}
+				
+				if(!m.isVisible()) {
+					while(this.isVisible() == false) {
+						th.wait();
+					}
+				}
+				
+				
+			}catch(Exception e){
+				return;
+			}
 		}
+		
 	}
 
-	public void paint(Graphics g){ //더블버퍼링을 사용합니다.
+	public void paint(Graphics g) { //더블버퍼링을 사용합니다.
 		buffimg = createImage(1024, 768);
 		gc = buffimg.getGraphics();
 		update(g);
 	}
 
-	public void update(Graphics g){
+	public void update(Graphics g) {
 		//더블 버퍼링을 이용해 버퍼에 그려진것을 가져옵니다.
 		DrawImg();
-
 		g.drawImage(buffimg, 0, 0, this);
 	}
-	public void DrawImg(){
+	
+	public void DrawImg() {
 		gc.setFont(new Font("Default", Font.BOLD, 20));
 		gc.drawString(Integer.toString(cnt), 50, 50);
 		gc.drawString(Integer.toString((playerMove)?1:0),200, 50);
@@ -123,7 +132,6 @@ KeyListener{
 		switch(num) {
 		case 0 : gc.drawImage(map, 0, 0, 1024, 768, this); break;
 		case 1 : gc.drawImage(map1, 0, 0, 1024, 768, this); break;
-
 		}
 
 		//위는 단순히 무한루프 적용여부와 케릭터 방향 체크를 위해
@@ -133,11 +141,7 @@ KeyListener{
 		//케릭터를 걸어가게 만들기 위해 추가로 만든 메소드 입니다.
 	}
 
-
-
-
-	public void MoveImage(Image img, int x, int y, int width, 
-			int height){
+	public void MoveImage(Image img, int x, int y, int width, int height) {
 		//케릭터 이미지, 케릭터 위치, 케릭터 크기를 받습니다.
 		//받은 값을 이용해서 위의 이미지칩셋에서 케릭터를 잘라내
 		//표출하도록 계산하는 메소드 입니다.
@@ -161,10 +165,9 @@ KeyListener{
 			//케릭터의 방향에 따라 걸어가는 모션을 취하는 
 			//케릭터 이미지를 시간차를 이용해 순차적으로 그립니다.
 
-		}else { gc.drawImage(img, x - ( width * 1 ), 
-				y - ( height * moveStatus ), this);
+		}else {gc.drawImage(img, x - ( width * 1 ), 
+				y - ( height * moveStatus ), this); 
 		//케릭터가 움직이지 않으면 정지한 케릭터를 그립니다.
-
 		}
 	}
 
@@ -202,7 +205,12 @@ KeyListener{
 	public void keyPressed(KeyEvent e) {
 
 		if(e.getKeyCode() == 27) {
-			ChangePanel.changePanel(mf, this, new NewPage(mf));
+			System.out.println("esc 누름 = 유저메뉴");
+			
+			m.setVisible(false);
+			mf.add(ump);
+			ump.setVisible(true);
+			run();
 		}
 
 
