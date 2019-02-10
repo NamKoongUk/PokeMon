@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -47,18 +48,20 @@ public class UserInfoPage extends JPanel implements KeyListener{
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
 		this.addKeyListener(this);
-		backButton.setBounds(920, 640, 70, 50);
+		backButton.setBounds(900, 610, 90, 120);
 		backButton.setBorderPainted(false);
 		backButton.setFocusPainted(false);
 		backButton.setContentAreaFilled(false);
 		//뒤로가기 버튼
 		backButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseEntered(java.awt.event.MouseEvent e) {
+			public void mouseEntered(MouseEvent e) {
+				backButton.setIcon(new ImageIcon("images/userMenuImages/backButtonEntered.PNG"));
 				backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 			@Override
-			public void mouseExited(java.awt.event.MouseEvent e) {
+			public void mouseExited(MouseEvent e) {
+				backButton.setIcon(new ImageIcon("images/userMenuImages/backButtonBasic.PNG"));
 				backButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 			@Override

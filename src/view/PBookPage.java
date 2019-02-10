@@ -24,8 +24,8 @@ public class PBookPage extends JPanel{
 	private UserMenuPage ump;
 	
 	private ImageIcon backButtonImage = new ImageIcon(("images/userMenuImages/backButtonBasic.PNG"));
-	private ImageIcon leftButtonImage = new ImageIcon(("images/userMenuImages/leftButton.PNG"));
-	private ImageIcon rightButtonImage = new ImageIcon(("images/userMenuImages/rightButton.PNG"));
+	private ImageIcon leftButtonImage = new ImageIcon(("images/userMenuImages/leftButtonBasic.PNG"));
+	private ImageIcon rightButtonImage = new ImageIcon(("images/userMenuImages/rightButtonBasic.PNG"));
 	private ImageIcon getPokeImage = new ImageIcon(("images/userMenuImages/getPoke.PNG"));
 	//이미지를 가질 리스트
 	ArrayList<ImageIcon> imageList = new ArrayList<>();
@@ -79,10 +79,12 @@ public class PBookPage extends JPanel{
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				leftButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				leftButton.setIcon(new ImageIcon("images/userMenuImages/leftButtonEntered.PNG"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				leftButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				leftButton.setIcon(new ImageIcon("images/userMenuImages/leftButtonBasic.PNG"));
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -106,10 +108,12 @@ public class PBookPage extends JPanel{
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				rightButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				rightButton.setIcon(new ImageIcon("images/userMenuImages/rightButtonEntered.PNG"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				rightButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				rightButton.setIcon(new ImageIcon("images/userMenuImages/rightButtonBasic.PNG"));
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -123,7 +127,7 @@ public class PBookPage extends JPanel{
 			}
 		});
 		
-		backButton.setBounds(920, 640, 70, 50);
+		backButton.setBounds(900, 610, 90, 120);
 		backButton.setBorderPainted(false);
 		backButton.setFocusPainted(false);
 		backButton.setContentAreaFilled(false);
@@ -131,10 +135,12 @@ public class PBookPage extends JPanel{
 		backButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				backButton.setIcon(new ImageIcon("images/userMenuImages/backButtonEntered.PNG"));
 				backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
+				backButton.setIcon(new ImageIcon("images/userMenuImages/backButtonBasic.PNG"));
 				backButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 			@Override

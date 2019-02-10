@@ -7,12 +7,18 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import controller.PlayerManager;
+import model.vo.Player;
+
 class Map extends JPanel implements Runnable, KeyListener {
 	
+	Player p1 = new Player(0, new Date(), "최병욱");
+	PlayerManager pm = new PlayerManager(p1);
 	private MainFrame mf;
 	private Map m;
 	private NewPage np;
@@ -50,7 +56,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 		
 		this.mf = mf;
 		this.m = this;
-		this.ump = new UserMenuPage(mf, m);
+		this.ump = new UserMenuPage(mf, m,pm);
 		//this.pip = new PInfoPage(mf,m);
 		//np = new NewPage(mf, m);
 		
@@ -91,7 +97,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 	public void run(){ // ������ �޼ҵ�, ���� ����
 		while(true){
-			System.out.println("���ѷ���");
+			//System.out.println("���ѷ���");
 			try{
 				keyProcess();
 				repaint();

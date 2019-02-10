@@ -4,13 +4,14 @@ package view;
 import java.awt.Cursor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import controller.PlayerManager;
 
 public class UserMenuPage extends JPanel {
 	public final static int ESC = 27;
@@ -22,6 +23,7 @@ public class UserMenuPage extends JPanel {
 	private SavePage sp;
 	private UserInvenPage uivp;
 	private PBookPage pb;
+	private PlayerManager pm;
 	
 	private JButton saveButton = new JButton(new ImageIcon("images/userMenuImages/savePageButtonBasic.PNG"));
 	private JButton pBookButton = new JButton(new ImageIcon("images/userMenuImages/pBookButtonBasic.PNG"));
@@ -33,18 +35,26 @@ public class UserMenuPage extends JPanel {
 
 
 
-	public UserMenuPage(MainFrame mf, JPanel panel) {
+	public UserMenuPage(MainFrame mf, JPanel panel,PlayerManager pm) {
+		this.pm = pm;
 		this.ump = this;
 		this.mf = mf;
 		this.m = (Map) panel;
 		this.uip = new UserInfoPage(mf, this);
-		this.pip = new PInfoPage(mf, this);
+		this.pip = new PInfoPage(mf, this,pm);
 		this.sp = new SavePage(mf, this);
 		this.uivp = new UserInvenPage(mf,this);
 		this.pb = new PBookPage(mf,this);
 		
 		settingButton(saveButton);
-
+		this.setLayout(null);
+		saveButton.setBounds(200, 30, 600, 120);
+		pBookButton.setBounds(200,170,600, 120);
+		pokemonInfoButton.setBounds(200,310,600, 120);
+		userInfoButton.setBounds(200,450,600, 120);
+		userInvenButton.setBounds(200,590,600, 120);
+		backButton.setBounds(900, 610, 90, 120);
+		
 		saveButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -151,13 +161,12 @@ public class UserMenuPage extends JPanel {
 			}
 		});
 		this.add(userInvenButton);
-
-		backButton.setBounds(920, 700, 90, 90);
+		
+		
 		settingButton(backButton);
-		backButton.setBorderPainted(false);
-		backButton.setFocusPainted(false);
-		backButton.setContentAreaFilled(false);
+		backButton.setName("backButton");
 		backButton.addMouseListener(new MouseAdapter() {
+			
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				backButton.setIcon(new ImageIcon("images/userMenuImages/backButtonEntered.PNG"));

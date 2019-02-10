@@ -7,7 +7,7 @@ public class ChangePanel {
 
 	public static void changePanel(MainFrame mf, JPanel op, JPanel np) {
 		
-		System.out.println("Ã¼ÀÎÁö ÆÐ³Î ½ÇÇà...");
+		System.out.println("Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½ï¿½...");
 		
 		mf.remove(op);
 		mf.add(np);

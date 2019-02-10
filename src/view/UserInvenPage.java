@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,8 +20,8 @@ public class UserInvenPage extends JPanel {
 	private JButton backButton = new JButton(new ImageIcon(("images/userMenuImages/backButtonBasic.PNG")));
 	private JButton useButton = new JButton(new ImageIcon(("images/userMenuImages/useButton.PNG")));
 	
-	private JButton upButton = new JButton(new ImageIcon(("images/userMenuImages/upButton.PNG")));
-	private JButton downButton = new JButton(new ImageIcon(("images/userMenuImages/downButton.PNG")));
+	private JButton upButton = new JButton(new ImageIcon(("images/userMenuImages/upButtonBasic.PNG")));
+	private JButton downButton = new JButton(new ImageIcon(("images/userMenuImages/downButtonBasic.PNG")));
 	
 	private JLabel itemInfoLabel = new JLabel(new ImageIcon(("images/userMenuImages/itemInfo.PNG")));
 	private JLabel itemListLabel = new JLabel(new ImageIcon(("images/userMenuImages/itemList.PNG")));
@@ -76,10 +77,12 @@ public class UserInvenPage extends JPanel {
 			@Override
 			public void mouseEntered(java.awt.event.MouseEvent e) {
 				upButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				upButton.setIcon(new ImageIcon("images/userMenuImages/upButtonEntered.PNG"));
 			}
 			@Override
 			public void mouseExited(java.awt.event.MouseEvent e) {
 				upButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				upButton.setIcon(new ImageIcon("images/userMenuImages/upButtonBasic.PNG"));
 			}
 			@Override
 			public void mousePressed(java.awt.event.MouseEvent e) {
@@ -96,10 +99,12 @@ public class UserInvenPage extends JPanel {
 			@Override
 			public void mouseEntered(java.awt.event.MouseEvent e) {
 				downButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				downButton.setIcon(new ImageIcon("images/userMenuImages/downButtonEntered.PNG"));
 			}
 			@Override
 			public void mouseExited(java.awt.event.MouseEvent e) {
 				downButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				downButton.setIcon(new ImageIcon("images/userMenuImages/downButtonBasic.PNG"));
 			}
 			@Override
 			public void mousePressed(java.awt.event.MouseEvent e) {
@@ -109,18 +114,20 @@ public class UserInvenPage extends JPanel {
 		this.add(downButton);
 		
 		label.setBounds(450, 20, 200, 40);
-		backButton.setBounds(920, 640, 70, 50);
+		backButton.setBounds(900, 610, 90, 120);
 		backButton.setBorderPainted(false);
 		backButton.setFocusPainted(false);
 		backButton.setContentAreaFilled(false);
 		//뒤로가기 버튼
 		backButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseEntered(java.awt.event.MouseEvent e) {
+			public void mouseEntered(MouseEvent e) {
+				backButton.setIcon(new ImageIcon("images/userMenuImages/backButtonEntered.PNG"));
 				backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 			@Override
-			public void mouseExited(java.awt.event.MouseEvent e) {
+			public void mouseExited(MouseEvent e) {
+				backButton.setIcon(new ImageIcon("images/userMenuImages/backButtonBasic.PNG"));
 				backButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 			@Override

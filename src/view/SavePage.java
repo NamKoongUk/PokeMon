@@ -52,10 +52,12 @@ public class SavePage extends JPanel {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				saveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				saveButton.setIcon(new ImageIcon("images/userMenuImages/saveButtonEntered.PNG"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				saveButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				saveButton.setIcon(new ImageIcon("images/userMenuImages/saveButtonBasic.PNG"));
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -75,13 +77,16 @@ public class SavePage extends JPanel {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				saveBackButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				saveBackButton.setIcon(new ImageIcon("images/userMenuImages/saveBackButtonEntered.PNG"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				saveBackButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				saveBackButton.setIcon(new ImageIcon("images/userMenuImages/saveBackButtonBasic.PNG"));
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
+				saveBackButton.setIcon(new ImageIcon("images/userMenuImages/saveBackButtonBasic.PNG"));
 				mf.remove(sp);
 				ump.setVisible(true);
 				mf.requestFocus();
