@@ -9,3 +9,7 @@
 Gym,Lab,Center,UserMenu(PInfo) 기능 활성화
 
 UserBattle,HuntField,UserMenu(나머지), BattlePage,캡슐화,주석 기능 추가필요
+
+02/10
+
+-캡슐화와 불필요 클래스 정리 했습니다.
