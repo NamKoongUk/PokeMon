@@ -18,6 +18,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 	private NewPage np;
 	private PInfoPage pip;
 	private UserMenuPage ump;
+	private int movementSP = 5;
 	
 	boolean keyUp = false;
 	boolean keyDown = false;
@@ -30,6 +31,8 @@ class Map extends JPanel implements Runnable, KeyListener {
 	Image map = new ImageIcon("images/gym.PNG").getImage();
 	Image map1 = new ImageIcon("images/main.PNG").getImage();
 	Image img = new ImageIcon("images/img.PNG").getImage();
+	Image lab = new ImageIcon("images/lab.png").getImage();
+	Image center = new ImageIcon("images/Center.png").getImage();
 
 	//위에 이미지 이름이 바로 rpg.png입니다. 이미지를 불러옵니다
 	Image buffimg;// 더블버퍼링용 입니다.
@@ -72,8 +75,8 @@ class Map extends JPanel implements Runnable, KeyListener {
 	}
 
 	public void init(){
-		x = 100;
-		y = 100;
+		x = 500;
+		y = 600;
 
 		moveStatus = 2;
 		//케릭터가 시작할때 바라보는 방향은 아래쪽입니다.
@@ -90,7 +93,6 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 	public void run(){ // 스레드 메소드, 무한 루프
 		while(true){
-			System.out.println("무한루프");
 			try{
 				keyProcess();
 				repaint();
@@ -130,8 +132,10 @@ class Map extends JPanel implements Runnable, KeyListener {
 		gc.drawString(Integer.toString((playerMove)?1:0),200, 50);
 
 		switch(num) {
-		case 0 : gc.drawImage(map, 0, 0, 1024, 768, this); break;
-		case 1 : gc.drawImage(map1, 0, 0, 1024, 768, this); break;
+		case 0 : gc.drawImage(map1, 0, 0, 1024, 768, this); break;
+		case 1 : gc.drawImage(center, 0, 0, 1024, 768, this); break;
+		case 3 : gc.drawImage(lab, 0, 0, 1024, 768, this); break;
+		case 4 : gc.drawImage(map, 0, 0, 1024, 768, this); break;
 		}
 
 		//위는 단순히 무한루프 적용여부와 케릭터 방향 체크를 위해
@@ -178,24 +182,24 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 		if ( keyUp && keyDown == false){
 			playerMove = true;
-			y -= 8;
+			y -= movementSP;
 			moveStatus = 3;
 		}
 
 		if ( keyDown){
-			y += 8;
+			y += movementSP;
 			moveStatus = 0;
 			playerMove = true;
 		}
 
 		if ( keyLeft && keyDown == false && keyUp == false){
-			x -= 8;
+			x -= movementSP;
 			moveStatus = 1;
 			playerMove = true;
 		}
 
 		if ( keyRight && x < 780 && keyDown == false && keyUp == false){
-			x += 8;
+			x += movementSP;
 			moveStatus = 2;
 			playerMove = true;
 
@@ -227,26 +231,64 @@ class Map extends JPanel implements Runnable, KeyListener {
 		case KeyEvent.VK_DOWN :
 			keyDown = true;
 			break;
+		case KeyEvent.VK_D : 
+			System.out.println("x : " + x + " y : " + y + " num : " + num);
+			break;
 		}
-		if((x >390 && x<460) &&
-				(y>685 && y <720)) {
-			num =1;
-			x= 480;
-			y = 160;
-		}
-
-
-		if( num ==1 &&(x >480 && x <510) &&
-				(y>120 && y <155)) {
-
+		
+		//체육관
+		if( num == 4 && (x > 390 && x<440) &&
+				(y>670)) {
 			num =0;
-			x = 500;
-			y=500;
+			x= 488;
+			y = 150;
 		}
 
+		//마을_체육관입
+		if( num ==0 &&(x >480 && x <510) &&
+				(y<148)) {
+
+			num =4;
+			x = 430;
+			y=670;
+		}
+		//연구소
+		if( num == 3 && (x > 500 && x<550) &&
+				(y>670)) {
+			num =0;
+			x= 180;
+			y = 140;
+		}
+		//마을_연구소입
+		if( num ==0 &&(x > 170 && x < 200) && (y<130)){
+		num =3;
+		x = 525;
+		y=670;
+		}
+		
+		//센터
+				if( num == 1 && (x > 450 && x<500) &&
+						(y>670)) {
+					num =0;
+					x= 765;
+					y = 610;
+				}
+		//마을_센터입
+		if( num == 0 && (x > 750 && x< 780) &&
+				(y<600 && y>550)) {
+			num =1;
+			x= 475;
+			y = 670;
+		}
+		
+		
+		
+
+		
 
 	}
-
+	
+	
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode()){
 		case KeyEvent.VK_LEFT :
