@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -19,17 +20,12 @@ public class PInfoPage extends JPanel implements KeyListener{
 	private Map m;
 	private JPanel pip;
 	private UserMenuPage ump;
-	private Image pInfoImage1 = new ImageIcon("images/pInfo1.png").getImage();
-	private Image pInfoImage2 = new ImageIcon("images/pInfo2.png").getImage();
-	private Image pInfoImage3 = new ImageIcon("images/pInfo3.png").getImage();
-	private Image pInfoImage4 = new ImageIcon("images/pInfo4.png").getImage();
-	private Image backButtonImage = new ImageIcon("images/back.png").getImage();
 
-	private JLabel pInfo1 = new JLabel(new ImageIcon(pInfoImage1));
-	private JLabel pInfo2 = new JLabel(new ImageIcon(pInfoImage2));
-	private JLabel pInfo3 = new JLabel(new ImageIcon(pInfoImage3));
-	private JLabel pInfo4 = new JLabel(new ImageIcon(pInfoImage4));
-	private JButton backButton = new JButton(new ImageIcon(backButtonImage));
+	private JLabel pInfo1 = new JLabel(new ImageIcon("images/userMenuImages/pInfo1.png"));
+	private JLabel pInfo2 = new JLabel(new ImageIcon("images/userMenuImages/pInfo2.png"));
+	private JLabel pInfo3 = new JLabel(new ImageIcon("images/userMenuImages/pInfo3.png"));
+	private JLabel pInfo4 = new JLabel(new ImageIcon("images/userMenuImages/pInfo4.png"));
+	private JButton backButton = new JButton(new ImageIcon("images/userMenuImages/backButtonBasic.png"));
 
 	public PInfoPage(MainFrame mf, UserMenuPage ump) {
 		this.mf = mf;
@@ -38,9 +34,17 @@ public class PInfoPage extends JPanel implements KeyListener{
 		pip.setOpaque(false);
 		pip.setBounds(0, 0, 1024, 768);
 		
+		mf.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == UserMenuPage.ESC) {
+					mf.remove(pip);
+					pip.setVisible(false);
+				}
+			}
+		});
+		
 		JLabel label = new JLabel();
 		label.setText("  ");
-		JTextArea p1 = new JTextArea();
 
 		pip.setBackground(Color.WHITE);
 		pip.setLayout(null);
@@ -69,7 +73,7 @@ public class PInfoPage extends JPanel implements KeyListener{
 		});
 
 		label.setBounds(450, 20, 200, 40);
-		p1.setBounds(180, 70, 300, 300);
+		pInfo1.setBounds(180, 70, 300, 300);
 		pInfo2.setBounds(520, 70, 300, 300);
 		pInfo3.setBounds(180, 390, 300, 300);
 		pInfo4.setBounds(520, 390, 300, 300);
@@ -77,14 +81,10 @@ public class PInfoPage extends JPanel implements KeyListener{
 
 		pip.add(label);
 		pip.add(backButton);
-		pip.add(p1);
+		pip.add(pInfo1);
 		pip.add(pInfo2);
 		pip.add(pInfo3);
 		pip.add(pInfo4);
-
-
-		//mf.add(pip);
-		//mf.setVisible(true);
 	}
 
 	@Override
