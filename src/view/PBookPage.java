@@ -2,9 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -15,6 +12,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.text.JTextComponent;
+
+import controller.PlayerManager;
 
 
 public class PBookPage extends JPanel{
@@ -22,6 +23,7 @@ public class PBookPage extends JPanel{
 	private JPanel pb;
 	private MainFrame mf;
 	private UserMenuPage ump;
+	private PlayerManager pm;
 	
 	private ImageIcon backButtonImage = new ImageIcon(("images/userMenuImages/backButtonBasic.PNG"));
 	private ImageIcon leftButtonImage = new ImageIcon(("images/userMenuImages/leftButtonBasic.PNG"));
@@ -42,12 +44,14 @@ public class PBookPage extends JPanel{
 	private int pokemonMax = 29;
 	
 	
-	public PBookPage(MainFrame mf,UserMenuPage ump) {
+	public PBookPage(MainFrame mf,UserMenuPage ump,PlayerManager pm) {
 		pBookImage();
+		this.pm = pm;
 		this.mf = mf;
 		this.pb = this;
 		this.ump = ump;
 		this.setLayout(null);
+		JTextArea getPoke = new JTextArea();
 		
 		mf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
@@ -150,16 +154,19 @@ public class PBookPage extends JPanel{
 				mf.requestFocus();
 			}
 		});
-		getPokeLabel.setBounds(775, 15, 120, 40);
+		getPoke.setBounds(775, 15, 120, 40);
+		getPoke.setText("잡은 포켓몬 마리수 : "+pm.getPokemon().size());
+		
 		
 		setBoundPInfo();
 
 		for(int i=0; i<=pInfo.length-1; i++) {
 			this.add(pInfo[i]);
 		}
+		this.add(getPokeLabel);
 		this.add(label);
 		this.add(backButton);
-		this.add(getPokeLabel);
+		this.add(getPoke);
 		this.add(leftButton);
 		this.add(rightButton);
 		this.add(backButton);
@@ -198,19 +205,22 @@ public class PBookPage extends JPanel{
 		}
 		int index = 5;
 		for(int i=max; i>min; i--) {
-			pInfo[index] = new JLabel(imageList.get(i));
+			pInfo[index] = new JLabel(imageList.get(i-1));
 			this.add(pInfo[index]);
 			index--;
 		}
 		setBoundPInfo();
 	}
 	public void setBoundPInfo() {
+		
 		pInfo[0].setBounds(125, 70, 250, 250);
 		pInfo[1].setBounds(385, 70, 250, 250);
 		pInfo[2].setBounds(645, 70, 250, 250);
 		pInfo[3].setBounds(125, 350, 250, 250);
 		pInfo[4].setBounds(385, 350, 250, 250);
 		pInfo[5].setBounds(645, 350, 250, 250);
+		
+		
 	}
 
 	

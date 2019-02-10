@@ -7,20 +7,18 @@ import model.vo.Player;
 import model.vo.Pokemon;
 
 public class PlayerDao {
+	private Player p;
 	private ArrayList<Pokemon> playerPokemonList = new ArrayList<>();
 	private ArrayList<Item> playerItemList = new ArrayList<>();
 	
 	public PlayerDao(Player p) {
-		
+		this.p = p;
 	}
 
 	public ArrayList<Pokemon> getPlayerPokemonList() {
 		return playerPokemonList;
 	}
 
-	public void setPlayerPokemonList(ArrayList<Pokemon> playerPokemonList) {
-		this.playerPokemonList = playerPokemonList;
-	}
 
 	public ArrayList<Item> getPlayerItemList() {
 		return playerItemList;
@@ -32,9 +30,18 @@ public class PlayerDao {
 	public ArrayList<Pokemon> getPokemonList() {
 		return playerPokemonList;
 	}
+	
+	//유저 포켓몬 추가
 	public void setPokemonList(Pokemon p) {
 		this.playerPokemonList.add(p);
 	}
+	//포켓몬 경험치획득
+	public void givePokemonExp(Pokemon p) {
+		
+	}
+
+
+	
 	
 	
 }

@@ -40,11 +40,11 @@ public class UserMenuPage extends JPanel {
 		this.ump = this;
 		this.mf = mf;
 		this.m = (Map) panel;
-		this.uip = new UserInfoPage(mf, this);
+		this.uip = new UserInfoPage(mf, this,pm);
 		this.pip = new PInfoPage(mf, this,pm);
 		this.sp = new SavePage(mf, this);
 		this.uivp = new UserInvenPage(mf,this);
-		this.pb = new PBookPage(mf,this);
+		this.pb = new PBookPage(mf,this,pm);
 		
 		settingButton(saveButton);
 		this.setLayout(null);
@@ -186,6 +186,8 @@ public class UserMenuPage extends JPanel {
 			}
 		});
 		this.add(backButton);
+		
+		// `키 눌렀을때 이전 메뉴로 돌아감
 		mf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				System.out.println(e.getKeyCode());
@@ -198,6 +200,7 @@ public class UserMenuPage extends JPanel {
 			}
 		});
 	}
+	//버튼들 기본 세팅
 	public void settingButton(JButton jb) {
 		jb.setBorderPainted(false);
 		jb.setFocusPainted(false);

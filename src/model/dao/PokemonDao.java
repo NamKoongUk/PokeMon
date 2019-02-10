@@ -37,9 +37,6 @@ public class PokemonDao {
 		pokemonList.add(p12);
 		pokemonList.add(p13);
 	}
-	public PokemonDao(Pokemon pokemon) {
-		
-	}
 	public ArrayList<Pokemon> getBasicPokemonList() {
 		return pokemonList;
 	}

@@ -13,8 +13,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.PlayerManager;
+
 public class UserInfoPage extends JPanel implements KeyListener{
 	private MainFrame mf;
+	private PlayerManager pm;
 	private JPanel uip;
 	private UserMenuPage ump;
 	
@@ -23,15 +26,18 @@ public class UserInfoPage extends JPanel implements KeyListener{
 	private JLabel playTimeLabel = new JLabel(new ImageIcon("images/userMenuImages/playTime.PNG"));
 	private JLabel goldLabel = new JLabel(new ImageIcon("images/userMenuImages/gold.PNG"));
 	private JLabel getPokeLabel = new JLabel(new ImageIcon("images/userMenuImages/getPoke.PNG"));
-	private JLabel userNameLabel = new JLabel(new ImageIcon("images/userMenuImages/userName.PNG"));
+	private JLabel userNameLabel;
 	private JButton backButton = new JButton(new ImageIcon("images/userMenuImages/backButtonBasic.PNG"));
 	
-	public UserInfoPage(MainFrame mf,UserMenuPage ump) {
+	public UserInfoPage(MainFrame mf,UserMenuPage ump,PlayerManager pm) {
+		this.pm = pm;
 		this.mf = mf;
 		this.uip = this;
 		this.ump = ump;
 		uip.setOpaque(false);
 		uip.setBounds(0, 0, 1024, 768);
+		
+		userNameLabel = new JLabel();
 		
 		
 		mf.addKeyListener(new KeyAdapter() {

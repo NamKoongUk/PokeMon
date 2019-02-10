@@ -24,7 +24,9 @@ public class PlayerManager {
 	public void setPokemon(Pokemon pokemon) {
 		pdao.setPokemonList(pokemon);
 	}
-	
+	public void giveExp() {
+		
+	}
 	
 	
 	

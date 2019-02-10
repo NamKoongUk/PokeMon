@@ -10,7 +10,6 @@ import view.MainFrame;
 public class Run {
 
 	public static void main(String[] args) {
-		new PokemonDao();
 		new MainFrame();
 		
 	}

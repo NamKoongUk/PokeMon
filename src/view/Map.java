@@ -22,8 +22,6 @@ class Map extends JPanel implements Runnable, KeyListener {
 	private MainFrame mf;
 	private Map m;
 	private NewPage np;
-	private PInfoPage pip;
-	private UserInfoPage uip;
 	private UserMenuPage ump;
 	
 	boolean keyUp = false;
