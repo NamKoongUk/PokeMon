@@ -88,11 +88,6 @@ public class PInfoPage extends JPanel implements KeyListener{
 	}
 
 	@Override
-	public void paintComponent(Graphics g) {
-		//g.drawImage(backButtonImage, 920, 640, 70, 50,backButton);
-	}
-
-	@Override
 	public void keyTyped(KeyEvent e) {
 
 	}

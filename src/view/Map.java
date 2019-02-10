@@ -12,66 +12,63 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 class Map extends JPanel implements Runnable, KeyListener {
-	
+
 	private MainFrame mf;
 	private Map m;
-	private NewPage np;
 	private PInfoPage pip;
 	private UserMenuPage ump;
 	private int movementSP = 5;
-	
-	boolean keyUp = false;
-	boolean keyDown = false;
-	boolean keyLeft = false;
-	boolean keyRight = false; 
-	boolean playerMove = false;
 
-	Toolkit tk = Toolkit.getDefaultToolkit();
+	private boolean keyUp = false;
+	private boolean keyDown = false;
+	private boolean keyLeft = false;
+	private boolean keyRight = false; 
+	private boolean playerMove = false;
 
-	Image map = new ImageIcon("images/gym.PNG").getImage();
-	Image map1 = new ImageIcon("images/main.PNG").getImage();
-	Image img = new ImageIcon("images/img.PNG").getImage();
-	Image lab = new ImageIcon("images/lab.png").getImage();
-	Image center = new ImageIcon("images/Center.png").getImage();
+	private Toolkit tk = Toolkit.getDefaultToolkit();
+
+	private Image map = new ImageIcon("images/gym.PNG").getImage();
+	private Image map1 = new ImageIcon("images/main.PNG").getImage();
+	private Image img = new ImageIcon("images/img.PNG").getImage();
+	private Image lab = new ImageIcon("images/lab.png").getImage();
+	private Image center = new ImageIcon("images/Center.png").getImage();
 
 	//위에 이미지 이름이 바로 rpg.png입니다. 이미지를 불러옵니다
-	Image buffimg;// 더블버퍼링용 입니다.
-	Graphics gc;
+	private Image buffimg;// 더블버퍼링용 입니다.
+	private Graphics gc;
 
-	Thread th;
+	private Thread th;
 
-	int x, y; // 케릭터의 현재 좌표를 받을 변수
-	int cnt; //무한 루프를 카운터 하기 위한 변수
-	int moveStatus; //케릭터가 어디를 바라보는지 방향을 받을 변수
-	int num = 0;
-	boolean onOff;
+	private int x, y; // 케릭터의 현재 좌표를 받을 변수
+	private int cnt; //무한 루프를 카운터 하기 위한 변수
+	private int moveStatus; //케릭터가 어디를 바라보는지 방향을 받을 변수
+	private int num = 0;
+	private boolean onOff;
 
 	public Map(MainFrame mf) {
-		
+
 		System.out.println("맵 클래스 실행...");
-		
+
 		this.mf = mf;
 		this.m = this;
 		this.ump = new UserMenuPage(mf, m);
-		//this.pip = new PInfoPage(mf,m);
-		//np = new NewPage(mf, m);
-		
+
 		onOff = true;
-		
+
 		this.setVisible(true);
 		this.setSize(1024,768);
 		this.setBounds(0,0,1024,768);
 		init();
 		start();
-		
+
 		Dimension screen = tk.getScreenSize();
 
 		int xpos = (int)(screen.getWidth() / 2 - getWidth() / 2);
 		int ypos = (int)(screen.getHeight() / 2 - getHeight() / 2);
 		setLocation(xpos, ypos);
-		
+
 		mf.add(this);
-		
+
 	}
 
 	public void init(){
@@ -99,19 +96,19 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 				Thread.sleep(20);
 				cnt++;
-				
+
 				if(!m.isVisible()) {
 					while(this.isVisible() == false) {
 						th.wait();
 					}
 				}
-				
-				
+
+
 			}catch(Exception e){
 				return;
 			}
 		}
-		
+
 	}
 
 	public void paint(Graphics g) { //더블버퍼링을 사용합니다.
@@ -125,7 +122,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 		DrawImg();
 		g.drawImage(buffimg, 0, 0, this);
 	}
-	
+
 	public void DrawImg() {
 		gc.setFont(new Font("Default", Font.BOLD, 20));
 		gc.drawString(Integer.toString(cnt), 50, 50);
@@ -198,7 +195,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 			playerMove = true;
 		}
 
-		if ( keyRight && x < 780 && keyDown == false && keyUp == false){
+		if ( keyRight && x < 1024 && keyDown == false && keyUp == false){
 			x += movementSP;
 			moveStatus = 2;
 			playerMove = true;
@@ -210,7 +207,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 		if(e.getKeyCode() == 27) {
 			System.out.println("esc 누름 = 유저메뉴");
-			
+
 			m.setVisible(false);
 			mf.add(ump);
 			ump.setVisible(true);
@@ -235,7 +232,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 			System.out.println("x : " + x + " y : " + y + " num : " + num);
 			break;
 		}
-		
+
 		//체육관
 		if( num == 4 && (x > 390 && x<440) &&
 				(y>670)) {
@@ -261,18 +258,18 @@ class Map extends JPanel implements Runnable, KeyListener {
 		}
 		//마을_연구소입
 		if( num ==0 &&(x > 170 && x < 200) && (y<130)){
-		num =3;
-		x = 525;
-		y=670;
+			num =3;
+			x = 525;
+			y=670;
 		}
-		
+
 		//센터
-				if( num == 1 && (x > 450 && x<500) &&
-						(y>670)) {
-					num =0;
-					x= 765;
-					y = 610;
-				}
+		if( num == 1 && (x > 450 && x<500) &&
+				(y>670)) {
+			num =0;
+			x= 765;
+			y = 610;
+		}
 		//마을_센터입
 		if( num == 0 && (x > 750 && x< 780) &&
 				(y<600 && y>550)) {
@@ -280,15 +277,15 @@ class Map extends JPanel implements Runnable, KeyListener {
 			x= 475;
 			y = 670;
 		}
-		
-		
-		
 
-		
+
+
+
+
 
 	}
-	
-	
+
+
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode()){
 		case KeyEvent.VK_LEFT :
