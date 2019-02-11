@@ -12,14 +12,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 class Map extends JPanel implements Runnable, KeyListener {
-	
+
 	private MainFrame mf;
 	private Map m;
 	private NewPage np;
 	private PInfoPage pip;
 	private UserMenuPage ump;
 	private int movementSP = 5;
-	
+
 	boolean keyUp = false;
 	boolean keyDown = false;
 	boolean keyLeft = false;
@@ -28,12 +28,17 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 	Toolkit tk = Toolkit.getDefaultToolkit();
 
-	Image map = new ImageIcon("images/gym.PNG").getImage();
-	Image map1 = new ImageIcon("images/main.PNG").getImage();
+	Image gym = new ImageIcon("images/gym.PNG").getImage();
+	Image vill = new ImageIcon("images/main.PNG").getImage();
 	Image img = new ImageIcon("images/img.PNG").getImage();
 	Image lab = new ImageIcon("images/lab.png").getImage();
 	Image center = new ImageIcon("images/Center.png").getImage();
-
+	Image huntfield = new ImageIcon("images/HuntFieldPage.png").getImage();
+	Image h_fire = new ImageIcon("images/fireField.png").getImage();
+	Image h_water = new ImageIcon("images/waterField.png").getImage();
+	Image h_jungle = new ImageIcon("images/jungleField.png").getImage();
+	
+	
 	//위에 이미지 이름이 바로 rpg.png입니다. 이미지를 불러옵니다
 	Image buffimg;// 더블버퍼링용 입니다.
 	Graphics gc;
@@ -47,31 +52,31 @@ class Map extends JPanel implements Runnable, KeyListener {
 	boolean onOff;
 
 	public Map(MainFrame mf) {
-		
+
 		System.out.println("맵 클래스 실행...");
-		
+
 		this.mf = mf;
 		this.m = this;
 		this.ump = new UserMenuPage(mf, m);
 		//this.pip = new PInfoPage(mf,m);
 		//np = new NewPage(mf, m);
-		
+
 		onOff = true;
-		
+
 		this.setVisible(true);
 		this.setSize(1024,768);
 		this.setBounds(0,0,1024,768);
 		init();
 		start();
-		
+
 		Dimension screen = tk.getScreenSize();
 
 		int xpos = (int)(screen.getWidth() / 2 - getWidth() / 2);
 		int ypos = (int)(screen.getHeight() / 2 - getHeight() / 2);
 		setLocation(xpos, ypos);
-		
+
 		mf.add(this);
-		
+
 	}
 
 	public void init(){
@@ -99,19 +104,19 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 				Thread.sleep(20);
 				cnt++;
-				
+
 				if(!m.isVisible()) {
 					while(this.isVisible() == false) {
 						th.wait();
 					}
 				}
-				
-				
+
+
 			}catch(Exception e){
 				return;
 			}
 		}
-		
+
 	}
 
 	public void paint(Graphics g) { //더블버퍼링을 사용합니다.
@@ -125,17 +130,23 @@ class Map extends JPanel implements Runnable, KeyListener {
 		DrawImg();
 		g.drawImage(buffimg, 0, 0, this);
 	}
-	
+
 	public void DrawImg() {
 		gc.setFont(new Font("Default", Font.BOLD, 20));
 		gc.drawString(Integer.toString(cnt), 50, 50);
 		gc.drawString(Integer.toString((playerMove)?1:0),200, 50);
 
 		switch(num) {
-		case 0 : gc.drawImage(map1, 0, 0, 1024, 768, this); break;
-		case 1 : gc.drawImage(center, 0, 0, 1024, 768, this); break;
+		case 0 : gc.drawImage(vill, 0, 0, 1024, 768, this); break;
+		case 1 : gc.drawImage(center, 0, 0, 1024, 768, this); break; 
 		case 3 : gc.drawImage(lab, 0, 0, 1024, 768, this); break;
-		case 4 : gc.drawImage(map, 0, 0, 1024, 768, this); break;
+		case 4 : gc.drawImage(gym, 0, 0, 1024, 768, this); break;
+		case 5 : gc.drawImage(huntfield, 0, 0, 1024, 768, this); break;
+		case 6 : gc.drawImage(h_fire, 0, 0, 1024, 768, this); break;
+		case 7 : gc.drawImage(h_water, 0, 0, 1024, 768, this); break;
+		case 8 : gc.drawImage(h_jungle, 0, 0, 1024, 768, this); break;
+		
+		
 		}
 
 		//위는 단순히 무한루프 적용여부와 케릭터 방향 체크를 위해
@@ -180,25 +191,25 @@ class Map extends JPanel implements Runnable, KeyListener {
 		//케릭터의 움직임 여부및 방향을 체크 합니다.
 		playerMove = false;
 
-		if ( keyUp && keyDown == false){
+		if ( keyUp && y > -10 && keyDown == false){
 			playerMove = true;
 			y -= movementSP;
 			moveStatus = 3;
 		}
 
-		if ( keyDown){
+		if ( keyDown && y < 690){
 			y += movementSP;
 			moveStatus = 0;
 			playerMove = true;
 		}
 
-		if ( keyLeft && keyDown == false && keyUp == false){
+		if ( keyLeft && x > -20 && keyDown == false && keyUp == false){
 			x -= movementSP;
 			moveStatus = 1;
 			playerMove = true;
 		}
 
-		if ( keyRight && x < 780 && keyDown == false && keyUp == false){
+		if ( keyRight && x < 980 && keyDown == false && keyUp == false){
 			x += movementSP;
 			moveStatus = 2;
 			playerMove = true;
@@ -210,7 +221,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 		if(e.getKeyCode() == 27) {
 			System.out.println("esc 누름 = 유저메뉴");
-			
+
 			m.setVisible(false);
 			mf.add(ump);
 			ump.setVisible(true);
@@ -235,60 +246,104 @@ class Map extends JPanel implements Runnable, KeyListener {
 			System.out.println("x : " + x + " y : " + y + " num : " + num);
 			break;
 		}
-		
+		//--------------------------------------
 		//체육관
-		if( num == 4 && (x > 390 && x<440) &&
-				(y>670)) {
+		if( num == 4 && (x > 390 && x<440) && (y>670)) {
 			num =0;
 			x= 488;
 			y = 150;
 		}
-
 		//마을_체육관입
-		if( num ==0 &&(x >480 && x <510) &&
-				(y<148)) {
+		if( num ==0 &&(x >480 && x <510) && (y<148)) {
 
 			num =4;
 			x = 430;
 			y=670;
 		}
+		//--------------------------------------
 		//연구소
-		if( num == 3 && (x > 500 && x<550) &&
-				(y>670)) {
+		if( num == 3 && (x > 500 && x<550) && (y>670)) {
 			num =0;
 			x= 180;
 			y = 140;
 		}
 		//마을_연구소입
 		if( num ==0 &&(x > 170 && x < 200) && (y<130)){
-		num =3;
-		x = 525;
-		y=670;
+			num =3;
+			x = 525;
+			y=670;
 		}
-		
+		//--------------------------------------
 		//센터
-				if( num == 1 && (x > 450 && x<500) &&
-						(y>670)) {
-					num =0;
-					x= 765;
-					y = 610;
-				}
+		if( num == 1 && (x > 450 && x<500) && (y>670)) {
+			num =0;
+			x= 765;
+			y = 610;
+		}
 		//마을_센터입
-		if( num == 0 && (x > 750 && x< 780) &&
-				(y<600 && y>550)) {
+		if( num == 0 && (x > 750 && x< 780) && (y<600 && y>550)) {
 			num =1;
 			x= 475;
 			y = 670;
 		}
-		
-		
+		//--------------------------------------
+		//사냥터
+		if(num == 5 && (x > 460 && x < 560) && (y < 0)) {
+			num = 0;
+			x = 490;
+			y = 670;
+		}
+		//마을_사냥터입
+		if(num == 0 && (x > 450 && x < 520) && (y > 670)) {
+			num = 5;
+			x = 510;
+			y = 0;
+		}
+		//사냥터_불
+		if(num == 5 && (x < 0) && (y > 260 & y < 410)) {
+			num = 6;
+			x = 510;
+			y = 0;
+		}
+		//불사냥터 퇴장
+		if(num == 6 && (x > 460 && x < 560) && (y < 0)) {
+			num = 5;
+			x = 10;
+			y = 335;
+		}
+		//사냥터_물
+		if(num == 5 && (x > 979) && (y > 260 & y < 410)) {
+			num = 7;
+			x = 510;
+			y = 0;
+		}
+		//물사냥터 퇴장
+		if(num == 7 && (x > 400 && x < 510) && (y < 0)) {
+			num = 5;
+			x = 979;
+			y = 335;
+		}
+		//사냥터_풀
+		if(num == 5 && (x > 460 && x < 560) && (y > 680)) {
+			num = 8;
+			x = 510;
+			y = 0;
+		}
+		//풀사냥터 퇴장
+				if(num == 8 && (x > 450 && x < 580) && (y < 0)) {
+					num = 5;
+					x = 510;
+					y = 670;
+				}
+		//--------------------------------------
 		
 
-		
+
+
 
 	}
-	
-	
+
+
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode()){
 		case KeyEvent.VK_LEFT :
