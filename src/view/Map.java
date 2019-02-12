@@ -51,6 +51,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 	int num = 99;
 	boolean onOff;
 
+	
 	public Map(MainFrame mf) {
 
 		System.out.println("맵 클래스 실행...");
