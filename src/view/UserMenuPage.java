@@ -2,7 +2,8 @@ package view;
 
 
 import java.awt.Cursor;
-import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -10,37 +11,25 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+
 public class UserMenuPage extends JPanel {
+	public final static int ESC = 27;
 	private JPanel ump;
 	private MainFrame mf;
 	private Map m;
 	private PInfoPage pip;
-	private static JPanel oldPage;
+	private UserInfoPage uip;
+	private SavePage sp;
+	private UserInvenPage uivp;
+	private PBookPage pb;
+	
+	private JButton saveButton = new JButton(new ImageIcon("images/userMenuImages/savePageButtonBasic.PNG"));
+	private JButton pBookButton = new JButton(new ImageIcon("images/userMenuImages/pBookButtonBasic.PNG"));
+	private JButton pokemonInfoButton = new JButton(new ImageIcon("images/userMenuImages/pokemonInfoButtonBasic.PNG"));
+	private JButton userInfoButton = new JButton(new ImageIcon("images/userMenuImages/userInfoButtonBasic.PNG"));
+	private JButton userInvenButton = new JButton(new ImageIcon("images/userMenuImages/userInvenButtonBasic.PNG"));
+	private JButton backButton = new JButton(new ImageIcon("images/userMenuImages/backButtonBasic.png"));
 
-	private Image backButtonImage = new ImageIcon("images/back.png").getImage();
-	private Image saveButtonImage = new ImageIcon("images/saveButton.PNG").getImage();
-	private Image pBookButtonImage = new ImageIcon("images/pBookButton.PNG").getImage();
-	private Image pokemonInfoButtonImage = new ImageIcon("images/pokemonInfoButton.PNG").getImage();
-	private Image userInfoButtonImage = new ImageIcon("images/userInfoButton.PNG").getImage();
-	private Image userInvenButtonImage = new ImageIcon("images/userInvenButton.PNG").getImage();
-	private Image saveButtonEnteredImage = new ImageIcon("images/saveButtonEntered.PNG").getImage();
-	private Image pBookButtonEnteredImage = new ImageIcon("images/pBookButtonEntered.PNG").getImage();
-	private Image pokemonInfoButtonEnteredImage = new ImageIcon("images/pokemonInfoButtonEntered.PNG").getImage();
-	private Image userInfoButtonEnteredImage = new ImageIcon("images/userInfoButtonEntered.PNG").getImage();
-	private Image userInvenButtonEnteredImage = new ImageIcon("images/userInvenButtonEntered.PNG").getImage();
-
-	private JButton saveButton = new JButton(new ImageIcon(saveButtonImage));
-	private JButton pBookButton = new JButton(new ImageIcon(pBookButtonImage));
-	private JButton pokemonInfoButton = new JButton(new ImageIcon(pokemonInfoButtonImage));
-	private JButton userInfoButton = new JButton(new ImageIcon(userInfoButtonImage));
-	private JButton userInvenButton = new JButton(new ImageIcon(userInvenButtonImage));
-	private JButton backButton = new JButton(new ImageIcon(backButtonImage));
-
-	private JButton saveButtonEntered = new JButton(new ImageIcon(saveButtonEnteredImage));
-	private JButton pBookButtonEntered = new JButton(new ImageIcon(pBookButtonEnteredImage));
-	private JButton pokemonInfoButtonEntered = new JButton(new ImageIcon(pokemonInfoButtonEnteredImage));
-	private JButton userInfoButtonEntered = new JButton(new ImageIcon(userInfoButtonEnteredImage));
-	private JButton userInvenButtonEntered = new JButton(new ImageIcon(userInvenButtonEnteredImage));
 
 
 
@@ -48,22 +37,37 @@ public class UserMenuPage extends JPanel {
 		this.ump = this;
 		this.mf = mf;
 		this.m = (Map) panel;
+		this.uip = new UserInfoPage(mf, this);
 		this.pip = new PInfoPage(mf, this);
+		this.sp = new SavePage(mf, this);
+		this.uivp = new UserInvenPage(mf,this);
+		this.pb = new PBookPage(mf,this);
 		
 		settingButton(saveButton);
-
+		this.setLayout(null);
+		saveButton.setBounds(200, 30, 600, 120);
+		pBookButton.setBounds(200,170,600, 120);
+		pokemonInfoButton.setBounds(200,310,600, 120);
+		userInfoButton.setBounds(200,450,600, 120);
+		userInvenButton.setBounds(200,590,600, 120);
+		backButton.setBounds(900, 610, 90, 120);
+		
 		saveButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				saveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				saveButton.setIcon(new ImageIcon("images/userMenuImages/savePageButtonEntered.PNG"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				saveButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				saveButton.setIcon(new ImageIcon("images/userMenuImages/savePageButtonBasic.PNG"));
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				//ChangePanel.changePanel(mf, ump, new SavePage(mf));			
+				ump.setVisible(false);
+				sp.setVisible(true);
+				mf.add(sp);
 			}
 		});
 
@@ -74,14 +78,18 @@ public class UserMenuPage extends JPanel {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				pBookButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				pBookButton.setIcon(new ImageIcon("images/userMenuImages/pBookButtonEntered.PNG"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				pBookButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				pBookButton.setIcon(new ImageIcon("images/userMenuImages/pBookButtonBasic.PNG"));
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				//ChangePanel.changePanel(mf, ump, new PBookPage(mf));
+				ump.setVisible(false);
+				pb.setVisible(true);
+				mf.add(pb);
 			}
 		});
 		this.add(pBookButton);
@@ -91,17 +99,18 @@ public class UserMenuPage extends JPanel {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				pokemonInfoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				pokemonInfoButton.setIcon(new ImageIcon("images/userMenuImages/pokemonInfoButtonEntered.PNG"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				pokemonInfoButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				pokemonInfoButton.setIcon(new ImageIcon("images/userMenuImages/pokemonInfoButtonBasic.PNG"));
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
 				ump.setVisible(false);
 				pip.setVisible(true);
 				mf.add(pip);
-				//ChangePanel.changePanel(mf, ump, new PInfoPage(mf));
 			}
 		});
 		this.add(pokemonInfoButton);
@@ -110,16 +119,19 @@ public class UserMenuPage extends JPanel {
 		userInfoButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				userInfoButton.setIcon(new ImageIcon("images/userMenuImages/userInfoButtonEntered.PNG"));
 				userInfoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
+				userInfoButton.setIcon(new ImageIcon("images/userMenuImages/userInfoButtonBasic.PNG"));
 				userInfoButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				
-				//ChangePanel.changePanel(mf, ump, new UserInfoPage(mf));
+				ump.setVisible(false);
+				uip.setVisible(true);
+				mf.add(uip);
 			}
 		});
 		this.add(userInfoButton);
@@ -130,32 +142,36 @@ public class UserMenuPage extends JPanel {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				userInvenButton.setIcon(new ImageIcon("images/userMenuImages/userInvenButtonEntered.PNG"));
 				userInvenButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
+				userInvenButton.setIcon(new ImageIcon("images/userMenuImages/userInvenButtonBasic.PNG"));
 				userInvenButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				
-				//ChangePanel.changePanel(mf, ump, new UserInvenPage(mf));
+				ump.setVisible(false);
+				uivp.setVisible(true);
+				mf.add(uivp);
 			}
 		});
 		this.add(userInvenButton);
-
-		backButton.setBounds(920, 700, 70, 50);
+		
+		
 		settingButton(backButton);
-		backButton.setBorderPainted(false);
-		backButton.setFocusPainted(false);
-		backButton.setContentAreaFilled(false);
+		backButton.setName("backButton");
 		backButton.addMouseListener(new MouseAdapter() {
+			
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				backButton.setIcon(new ImageIcon("images/userMenuImages/backButtonEntered.PNG"));
 				backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
+				backButton.setIcon(new ImageIcon("images/userMenuImages/backButtonBasic.PNG"));
 				backButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 			@Override
@@ -164,39 +180,30 @@ public class UserMenuPage extends JPanel {
 				m.setVisible(true);
 				mf.requestFocus();
 				((Map) m).start();
-				//ChangePanel.changePanel(mf, userMenu, oldPage);
 			}
 		});
-		
 		this.add(backButton);
-
-	}
-	/*public UserMenuPage(MainFrame mf,JPanel oldPage) {
-		//this(mf);
-		this.oldPage = oldPage;
-		backButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				backButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			}
-			@Override
-			public void mousePressed(MouseEvent e) {
-				//ChangePanel.changePanel(mf, userMenu, oldPage);
+		
+		// `키 눌렀을때 이전 메뉴로 돌아감
+		mf.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				System.out.println(e.getKeyCode());
+				if(e.getKeyCode() == 192) {
+					mf.remove(ump);
+					m.setVisible(true);
+					mf.requestFocus();
+					((Map) m).start();
+				}
 			}
 		});
-
-		mf.add(this);
-		mf.setVisible(true);
-	}*/
+	}
+	//버튼들 기본 세팅
 	public void settingButton(JButton jb) {
 		jb.setBorderPainted(false);
 		jb.setFocusPainted(false);
 		jb.setContentAreaFilled(false);
 	}
+
 
 
 
