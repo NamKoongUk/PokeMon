@@ -16,8 +16,8 @@ class Map extends JPanel implements Runnable, KeyListener {
 	private MainFrame mf;
 	private Map m;
 	private PInfoPage pip;
-	private UserMenuPage ump;
-	private Market market;//SM_추가
+	private UserMenuPage ump; 
+	private MarketView marketView;//SM_추가
 	private int movementSP = 3;
 
 	private boolean keyUp = false;
@@ -63,7 +63,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 		this.m = this;
 		this.ump = new UserMenuPage(mf, m);
 
-		this.market=new Market(mf,m);//SM_추가
+		this.marketView=new MarketView(mf,m);//SM_추가
 
 		onOff = true;
 
@@ -318,8 +318,8 @@ class Map extends JPanel implements Runnable, KeyListener {
 			System.out.println("상점 이용");
 			//this.market = new Market(mf,m);
 			m.setVisible(false);
-			mf.add(market);
-			market.setVisible(true);
+			mf.add(marketView);
+			marketView.setVisible(true);
 			run();
 
 			x=230;
