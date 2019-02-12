@@ -15,7 +15,6 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 	private MainFrame mf;
 	private Map m;
-	private NewPage np;
 	private PInfoPage pip;
 	private UserMenuPage ump;
 	private int movementSP = 5;
@@ -37,8 +36,9 @@ class Map extends JPanel implements Runnable, KeyListener {
 	Image h_fire = new ImageIcon("images/fireField.png").getImage();
 	Image h_water = new ImageIcon("images/waterField.png").getImage();
 	Image h_jungle = new ImageIcon("images/jungleField.png").getImage();
-	
-	
+	Image mainPage = new ImageIcon("images/mainPage.gif").getImage();
+
+
 	//위에 이미지 이름이 바로 rpg.png입니다. 이미지를 불러옵니다
 	Image buffimg;// 더블버퍼링용 입니다.
 	Graphics gc;
@@ -46,9 +46,9 @@ class Map extends JPanel implements Runnable, KeyListener {
 	Thread th;
 
 	int x, y; // 케릭터의 현재 좌표를 받을 변수
-	int cnt; //무한 루프를 카운터 하기 위한 변수
+	int cnt; //무한 루프를 카운터 하기 위한 변수 
 	int moveStatus; //케릭터가 어디를 바라보는지 방향을 받을 변수
-	int num = 0;
+	int num = 99;
 	boolean onOff;
 
 	public Map(MainFrame mf) {
@@ -145,8 +145,10 @@ class Map extends JPanel implements Runnable, KeyListener {
 		case 6 : gc.drawImage(h_fire, 0, 0, 1024, 768, this); break;
 		case 7 : gc.drawImage(h_water, 0, 0, 1024, 768, this); break;
 		case 8 : gc.drawImage(h_jungle, 0, 0, 1024, 768, this); break;
+		case 99 : gc.drawImage(mainPage, 0, 0, 904, 648, this);
+				gc.drawString("게임을 시작하려면 Enter키를 누르세요!", 280, 680);break;
 		
-		
+
 		}
 
 		//위는 단순히 무한루프 적용여부와 케릭터 방향 체크를 위해
@@ -245,6 +247,14 @@ class Map extends JPanel implements Runnable, KeyListener {
 		case KeyEvent.VK_D : 
 			System.out.println("x : " + x + " y : " + y + " num : " + num);
 			break;
+		case KeyEvent.VK_ENTER :
+			if(num == 99) {
+				num = 0;
+				break;
+			}
+			
+			
+			
 		}
 		//--------------------------------------
 		//체육관
@@ -281,10 +291,11 @@ class Map extends JPanel implements Runnable, KeyListener {
 			y = 610;
 		}
 		//마을_센터입
-		if( num == 0 && (x > 750 && x< 780) && (y<600 && y>550)) {
+		if( num == 0 && (x > 750 && x< 780) && (y<610 && y>550)) {
 			num =1;
 			x= 475;
 			y = 670;
+			
 		}
 		//--------------------------------------
 		//사냥터
@@ -330,13 +341,13 @@ class Map extends JPanel implements Runnable, KeyListener {
 			y = 0;
 		}
 		//풀사냥터 퇴장
-				if(num == 8 && (x > 450 && x < 580) && (y < 0)) {
-					num = 5;
-					x = 510;
-					y = 670;
-				}
+		if(num == 8 && (x > 450 && x < 580) && (y < 0)) {
+			num = 5;
+			x = 510;
+			y = 670;
+		}
 		//--------------------------------------
-		
+
 
 
 
