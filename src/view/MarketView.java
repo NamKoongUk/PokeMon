@@ -25,7 +25,7 @@ import javax.swing.event.ListSelectionListener;
 
 //스크롤만 추가 하면 list가 나오지 않음...
 //해결방법을 모르겟음
-public class Market extends JPanel {
+public class MarketView extends JPanel {
    private MainFrame mf;
    private JPanel market;
    
@@ -38,7 +38,7 @@ public class Market extends JPanel {
    private JButton backButton = new JButton(new ImageIcon(backButtonImage));
    
    
-   public Market(MainFrame mf, /*Map*/JPanel oldPage) {
+   public MarketView(MainFrame mf, /*Map*/JPanel oldPage) {
       this.mf=mf;
       this.market=this;
       this.m=(Map)oldPage;
