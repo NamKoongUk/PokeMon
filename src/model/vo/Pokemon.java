@@ -25,18 +25,29 @@ public class Pokemon {
 	
 	public Pokemon() {}
 	
-	public Pokemon(String pName, int pNo, int pLevel, int pType, int pHp, int pSpeed, Item pItem,
-			boolean pEvoType, Image pImg, int grade, int exp, int pMaxExp, int setExp) {
-		this.pName = pName;
-		this.pNo = pNo;
-		this.pLevel = pLevel;
+	public Pokemon(String pName, int pNo, int pType, boolean pEvoType, Image pImg, int grade) {
+		this.pName =pName;
+		this.pNo =pNo;
 		this.pType = pType;
-		this.pHp = pHp;
-		this.pSpeed = pSpeed;
-		this.pItem = pItem;
 		this.pEvoType = pEvoType;
 		this.pImg = pImg;
 		this.grade = grade;
+		
+		
+	}
+	
+	public Pokemon(String pName, int pNo, int pLevel, int pType, int pHp, int pSpeed, Item pItem,
+			boolean pEvoType, Image pImg, int grade, int exp, int pMaxExp, int setExp) {
+		this.pName = pName;  //1
+		this.pNo = pNo;      //2
+		this.pLevel = pLevel;
+		this.pType = pType;  //3
+		this.pHp = pHp;
+		this.pSpeed = pSpeed;
+		this.pItem = pItem;
+		this.pEvoType = pEvoType;  //4
+		this.pImg = pImg;          //5
+		this.grade = grade;        //6
 		this.exp = exp;
 		this.pMaxExp = pMaxExp;
 		this.setExp = setExp;
