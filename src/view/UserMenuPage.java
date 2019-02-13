@@ -191,7 +191,6 @@ public class UserMenuPage extends JPanel {
 		// `키 눌렀을때 이전 메뉴로 돌아감
 		mf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				System.out.println(e.getKeyCode());
 				if(e.getKeyCode() == 192) {
 					mf.remove(ump);
 					m.setVisible(true);

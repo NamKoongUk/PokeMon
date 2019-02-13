@@ -7,11 +7,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import controller.UserManager;
+import model.dao.UserDao;
+import model.vo.User;
 
 
 public class UserInfoPage extends JPanel implements KeyListener{
@@ -19,9 +24,10 @@ public class UserInfoPage extends JPanel implements KeyListener{
 	private JPanel uip;
 	private UserMenuPage ump;
 	
-	private JLabel charactorLabel = new JLabel(new ImageIcon("images/userMenuImages/charactorImage.PNG"));
+	private JLabel charactorLabel = new JLabel(new ImageIcon("images/userMenuImages/userImage.PNG"));
 	private JLabel badgeLable = new JLabel(new ImageIcon("images/userMenuImages/badge.PNG"));
-	private JLabel playTimeLabel = new JLabel(new ImageIcon("images/userMenuImages/playTime.PNG"));
+	private JLabel playTimeLabel;
+	private JLabel createTime;
 	private JLabel goldLabel = new JLabel(new ImageIcon("images/userMenuImages/gold.PNG"));
 	private JLabel getPokeLabel = new JLabel(new ImageIcon("images/userMenuImages/getPoke.PNG"));
 	private JLabel userNameLabel;
@@ -34,8 +40,16 @@ public class UserInfoPage extends JPanel implements KeyListener{
 		uip.setOpaque(false);
 		uip.setBounds(0, 0, 1024, 768);
 		
-		userNameLabel = new JLabel();
+		User user = new User("이름",new Date(),100000);
+		UserDao ud = new UserDao(user);
+		UserManager um = new UserManager(user,ud);
 		
+		userNameLabel = new JLabel();
+		playTimeLabel = new JLabel();
+		userNameLabel.setText(UserManager.viewUserName());
+		playTimeLabel.setText(UserManager.viewUserTime());
+		createTime = new JLabel();
+		createTime.setText("캐릭터 생성날짜 : " + UserManager.viewCreateTime());
 		
 		mf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
@@ -77,10 +91,11 @@ public class UserInfoPage extends JPanel implements KeyListener{
 		
 		label.setBounds(450, 20, 200, 40);
 		
-		charactorLabel.setBounds(180, 70, 300, 200);
-		userNameLabel.setBounds(180, 280, 300, 90);
+		charactorLabel.setBounds(180, 70, 250, 400);
+		userNameLabel.setBounds(340, 480, 300, 90);
 		badgeLable.setBounds(520, 70, 300, 300);
-		playTimeLabel.setBounds(180, 390, 300, 300);
+		createTime.setBounds(180, 390, 300, 300);
+		playTimeLabel.setBounds(180,430,300,300);
 		goldLabel.setBounds(520, 390, 300, 140);
 		getPokeLabel.setBounds(520, 550, 300, 140);
 		
@@ -91,6 +106,7 @@ public class UserInfoPage extends JPanel implements KeyListener{
 		this.add(userNameLabel);
 		this.add(badgeLable);
 		this.add(playTimeLabel);
+		this.add(createTime);
 		this.add(goldLabel);
 		this.add(getPokeLabel);
 	
