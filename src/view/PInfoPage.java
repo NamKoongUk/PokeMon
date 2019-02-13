@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -15,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import controller.BattleManager;
-import model.vo.Pokemon;
 
 public class PInfoPage extends JPanel{
 	private MainFrame mf;
@@ -67,7 +65,7 @@ public class PInfoPage extends JPanel{
 								+"\tÃ¼    ·Â  : " + pHp + "\n"
 								);
 		}*/
-		new BattleManager().show_p(this);
+		BattleManager.showP(this);
 		
 		mf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
