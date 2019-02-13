@@ -6,8 +6,8 @@ public class Stone extends Item {
 	
 	public Stone() {}
 	
-	public Stone(String iName, int iNo, int iPrice, int iType, Image iImg) {
-		super(iName, iNo, iPrice, iType, iImg);
+	public Stone(String iName, int iNo, int iPrice, int iType, Image iImg,int iAmount) {
+		super(iName, iNo, iPrice, iType, iImg, iAmount);
 	}
 
 }
