@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -19,6 +20,11 @@ class Map extends JPanel implements Runnable, KeyListener {
 	private UserMenuPage ump; 
 	private MarketView marketView;//SM_추가
 	private int movementSP = 3;
+	
+	private BattlePage bp;
+	private BattleSkillPage bsp;
+	private NpcBattlePage nbp;
+	private int ctn = 0;
 
 	private boolean keyUp = false;
 	private boolean keyDown = false;
@@ -62,6 +68,9 @@ class Map extends JPanel implements Runnable, KeyListener {
 		this.mf = mf;
 		this.m = this;
 		this.ump = new UserMenuPage(mf, m);
+		
+		this.bp = new BattlePage(mf, m);	//BattlePage 추가
+		this.nbp = new NpcBattlePage(mf, m);
 
 		this.marketView=new MarketView(mf,m);//SM_추가
 
@@ -387,6 +396,69 @@ class Map extends JPanel implements Runnable, KeyListener {
 			y = 670;
 		}
 		//--------------------------------------
+
+		//space
+		if(e.getKeyCode() == 32) {
+			System.out.println("x좌표: " + x + " y좌표: " + y);
+		}
+		
+		//물 사냥터 좌표값 1
+		if(num == 7 && (x > 520 && x < 600) && (y > 150 && y < 215)){
+			x = 520;
+			y = 220;
+					
+			System.out.println("배틀페이지");
+			m.setVisible(false);
+			mf.add(bp);
+			bp.setVisible(true);
+			run();
+		}
+		
+		/*//keypresse를 추가
+		if(num == 7 && keyEvent ) {
+			for(int i = 0; i < 10; i++) {
+				int xs = new Random().nextInt(275) + 1;
+				int ys = new Random().nextInt(475) + 1;
+				int xe = xs + 100;
+				int ye = ys + 100;
+				if(x > xs && x < xe && y > ys && y < ye) {
+			}
+				System.out.println(ys);
+				System.out.println(xs);
+					
+				}
+			}*/
+		
+		
+		
+		//체육관 배틀 첫번째
+		int ctn2 = 0;
+		if(num == 4 && (ctn2 == ctn - 1)&& (x > 24 && x < 75) && (y > 200 && y < 240)){
+			x = 50;
+			y = 245;
+			ctn += 1 ;
+					
+			System.out.println("Npc배틀페이지");
+			m.setVisible(false);
+			mf.add(nbp);
+			nbp.setVisible(true);
+			run();
+		}
+		
+		//체육관 배틀 두번째
+		if(num == 4 &&(ctn == 0)&& (x > 20 && x < 76) && (y > 580 && y < 615)){
+			x = 80;
+			y = 615;
+			ctn += 1;
+					
+			System.out.println("Npc배틀페이지");
+			m.setVisible(false);
+			mf.add(nbp);
+			nbp.setVisible(true);
+			run();
+		}
+		
+		//관장님 배틀 추가해야 함
 
 
 
