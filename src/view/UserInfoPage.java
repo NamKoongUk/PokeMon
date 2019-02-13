@@ -42,10 +42,10 @@ public class UserInfoPage extends JPanel implements KeyListener{
 		
 		userNameLabel = new JLabel();
 		playTimeLabel = new JLabel();
-		userNameLabel.setText(UserManager.viewUserName());
-		playTimeLabel.setText(UserManager.viewUserTime());
+		//userNameLabel.setText(UserManager.viewUserName());
+		//playTimeLabel.setText(UserManager.viewUserTime());
 		createTime = new JLabel();
-		createTime.setText("캐릭터 생성날짜 : " + UserManager.viewCreateTime());
+		//createTime.setText("캐릭터 생성날짜 : " + UserManager.viewCreateTime());
 		
 		mf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {

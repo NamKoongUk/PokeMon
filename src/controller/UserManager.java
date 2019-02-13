@@ -7,16 +7,20 @@ import model.dao.UserDao;
 import model.vo.User;
 
 public class UserManager {
-	private static User user;
-	private static UserDao ud;
+	private UserDao ud;
 	
+	public UserManager() {}
+	public UserManager(UserDao ud) {
+		//유저매니져 객체를 생성할때마다 ud의 값을 가져야함
+		this.ud = ud;
+	}
 	
 	public void userItemSet() {
 		
 	}
-	public static void createUser(String name) {
+	public void createUser(String name) {
 		//값을 전달받아 유저 객체 생성
-		user = new User(name,new Date(),0);
+		User user = new User(name,new Date(),1000);
 		ud = new UserDao(user);
 		
 	}
@@ -25,18 +29,18 @@ public class UserManager {
 		//첫 포켓몬 선택하는 메소드
 	}
 	
-	public static int getUserGold() {
+	public int getUserGold() {
 		//userDao가 가지고잇는 User객체값의 gold를 리턴받음
 		System.out.println(ud.getUser().getuGold());
 		return ud.getUser().getuGold();
 	}
-	public static void setUserGold(int gold) {
+	public void setUserGold(int gold) {
 		ud.getUser().setuGold(gold);
 	}
-	public static String viewUserName() {
+	public String viewUserName() {
 		return ud.getUser().getuName();
 	}
-	public static String viewUserTime() {
+	public String viewUserTime() {
 		SimpleDateFormat sdf = new SimpleDateFormat("hh시 mm분");
 		
 		long diff = ud.getUser().getuDate().getTime() - new Date().getTime();
@@ -46,7 +50,7 @@ public class UserManager {
 		return time;
 		
 	}
-	public static String viewCreateTime() {
+	public String viewCreateTime() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd E요일 hh시 mm분");
 		String time = sdf.format(ud.getUser().getuDate());
 		return time;
