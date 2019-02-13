@@ -2,17 +2,18 @@ package model.vo;
 
 import java.awt.Image;
 
-public class recovery extends Item {
+public class Recovery extends Item {
 	
 	private int rType;	//회복약 종류 -> 0 : 상 / 1 : 중 / 2 : 하
-	private int amount;	//회복량
+	private int rAmount;	//회복량
 	
-	public recovery() {}
+	public Recovery() {}
 	
-	public recovery(String iName, int iNo, int iPrice, int iType, Image iImg, int rType, int amount) {
-		super(iName, iNo, iPrice, iType, iImg);
+	public Recovery(String iName, int iNo, int iPrice, int iType, Image iImg,int iAmount, 
+			int rType, int rAmount) {
+		super(iName, iNo, iPrice, iType, iImg, iAmount);
 		this.rType = rType;
-		this.amount = amount;
+		this.rAmount = rAmount;
 	}
 
 	public int getrType() {
@@ -20,7 +21,7 @@ public class recovery extends Item {
 	}
 
 	public int getAmount() {
-		return amount;
+		return rAmount;
 	}
 
 	public void setrType(int rType) {
@@ -28,7 +29,7 @@ public class recovery extends Item {
 	}
 
 	public void setAmount(int amount) {
-		this.amount = amount;
+		this.rAmount = amount;
 	}
 
 }
