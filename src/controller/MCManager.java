@@ -1,19 +1,25 @@
 package controller;
 
+import java.util.Date;
+
 import model.dao.ItemDao;
+import model.dao.UserDao;
+import model.vo.User;
 
 //센터
 //체력회복
 public class MCManager {
 	//마켓
 	//구매수량체크->소유금액체크->구매가능여부 체크
-	String resultNo = "";
+	String resultNo = null;
 	
 	public void useMarket(String itemName, int itemAmount) {
-		ItemDao id = new ItemDao(); //->MarketView에서 쓸 것
+		ItemDao id = new ItemDao(); 
+		//->MarketView에서 쓸 것
 		//최소수량, 최대수량
-		
-		UserManager um = new UserManager();
+		User user = new User("이름",new Date(),100000);
+		UserDao ud = new UserDao(user);
+		UserManager um = new UserManager(user,ud);
 		int check=0;//구매 하고 싶은 아이템 총량의 수량
 		
 		ItemManager im = new ItemManager();

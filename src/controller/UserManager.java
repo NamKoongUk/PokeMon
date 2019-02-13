@@ -9,8 +9,9 @@ public class UserManager {
 	User user;
 	UserDao ud;
 	
-	public UserManager() {
-		
+	public UserManager(User user,UserDao ud) {
+		this.user = user;
+		this.ud = ud;
 	}
 	
 	public void userItemSet() {
@@ -28,6 +29,7 @@ public class UserManager {
 	
 	public int getUserGold() {
 		//userDao가 가지고잇는 User객체값의 gold를 리턴받음
+		System.out.println(ud.getUser().getuGold());
 		return ud.getUser().getuGold();
 	}
 	public void setUserGold(int gold) {
