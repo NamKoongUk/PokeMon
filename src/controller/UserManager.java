@@ -10,10 +10,6 @@ public class UserManager {
 	private static User user;
 	private static UserDao ud;
 	
-	public UserManager(User user,UserDao ud) {
-		this.user = user;
-		this.ud = ud;
-	}
 	
 	public void userItemSet() {
 		
@@ -22,6 +18,7 @@ public class UserManager {
 		//값을 전달받아 유저 객체 생성
 		user = new User(name,new Date(),0);
 		ud = new UserDao(user);
+		
 	}
 	
 	public void firstSelectPokemon(UserDao ud,User user) { 
