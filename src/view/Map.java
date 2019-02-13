@@ -21,7 +21,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 	private Map m;
 	private PInfoPage pip;
 	private UserMenuPage ump; 
-	private MarketView marketView;//SM_Ï∂îÍ∞Ä
+	private MarketView marketView;//SM_√ﬂ∞°
 	private int movementSP = 3;
 
 	
@@ -50,36 +50,36 @@ class Map extends JPanel implements Runnable, KeyListener {
 	private Image h_water = new ImageIcon("images/waterField.png").getImage();
 	private Image h_jungle = new ImageIcon("images/jungleField.png").getImage();
 	private Image mainPage = new ImageIcon("images/mainPage.gif").getImage();
-	private Image pvp = new ImageIcon("images/Pvp.png").getImage();//SM_Ï∂îÍ∞Ä//Ïú†Ï†Ä Í∞Ñ pvpÎåÄÍ∏∞Ïã§
+	private Image pvp = new ImageIcon("images/Pvp.png").getImage();//SM_√ﬂ∞°//¿Ø¿˙ ∞£ pvp¥Î±‚Ω«
 
-	//ÏúÑÏóê Ïù¥ÎØ∏ÏßÄ Ïù¥Î¶ÑÏù¥ Î∞îÎ°ú rpg.pngÏûÖÎãàÎã§. Ïù¥ÎØ∏ÏßÄÎ•º Î∂àÎü¨ÏòµÎãàÎã§
-	private Image buffimg;// ÎçîÎ∏îÎ≤ÑÌçºÎßÅÏö© ÏûÖÎãàÎã§.
+	//¿ßø° ¿ÃπÃ¡ˆ ¿Ã∏ß¿Ã πŸ∑Œ rpg.png¿‘¥œ¥Ÿ. ¿ÃπÃ¡ˆ∏¶ ∫“∑Øø…¥œ¥Ÿ
+	private Image buffimg;// ¥ı∫Ìπˆ∆€∏µøÎ ¿‘¥œ¥Ÿ.
 	private Graphics gc;
 
 	private Thread th;
 
-	private int x, y; // ÏºÄÎ¶≠ÌÑ∞Ïùò ÌòÑÏû¨ Ï¢åÌëúÎ•º Î∞õÏùÑ Î≥ÄÏàò
+	private int x, y; // ƒ…∏Ø≈Õ¿« «ˆ¿Á ¡¬«•∏¶ πﬁ¿ª ∫Øºˆ
 	private int pWidth = 31, pHeight = 32;
 
-	private int cnt; //Î¨¥Ìïú Î£®ÌîÑÎ•º Ïπ¥Ïö¥ÌÑ∞ ÌïòÍ∏∞ ÏúÑÌïú Î≥ÄÏàò
-	private int moveStatus; //ÏºÄÎ¶≠ÌÑ∞Í∞Ä Ïñ¥ÎîîÎ•º Î∞îÎùºÎ≥¥ÎäîÏßÄ Î∞©Ìñ•ÏùÑ Î∞õÏùÑ Î≥ÄÏàò
+	private int cnt; //π´«— ∑Á«¡∏¶ ƒ´øÓ≈Õ «œ±‚ ¿ß«— ∫Øºˆ
+	private int moveStatus; //ƒ…∏Ø≈Õ∞° æÓµ∏¶ πŸ∂Û∫∏¥¬¡ˆ πÊ«‚¿ª πﬁ¿ª ∫Øºˆ
 	private int num = 99;
 	private boolean onOff;
 
-	int escCtn=0;//SM_Ï∂îÍ∞Ä
+	int escCtn=0;//SM_√ﬂ∞°
 
 	public Map(MainFrame mf) {
 
-		System.out.println("Îßµ ÌÅ¥ÎûòÏä§ Ïã§Ìñâ...");
+		System.out.println("∏  ≈¨∑°Ω∫ Ω««‡...");
 
 		this.mf = mf;
 		this.m = this;
 		this.ump = new UserMenuPage(mf, m);
 		
-		this.bp = new BattlePage(mf, m);	//BattlePage Ï∂îÍ∞Ä
+		this.bp = new BattlePage(mf, m);	//BattlePage √ﬂ∞°
 		this.nbp = new NpcBattlePage(mf, m);
 
-		this.marketView=new MarketView(mf,m);//SM_Ï∂îÍ∞Ä
+		this.marketView=new MarketView(mf,m);//SM_√ﬂ∞°
 
 		onOff = true;
 
@@ -104,19 +104,19 @@ class Map extends JPanel implements Runnable, KeyListener {
 		y = 600;
 
 		moveStatus = 2;
-		//ÏºÄÎ¶≠ÌÑ∞Í∞Ä ÏãúÏûëÌï†Îïå Î∞îÎùºÎ≥¥Îäî Î∞©Ìñ•ÏùÄ ÏïÑÎûòÏ™ΩÏûÖÎãàÎã§.
-		// 0 : ÏúÑÏ™Ω, 1 : Ïò§Î•∏Ï™Ω, 2 : ÏïÑÎûòÏ™Ω, 3 : ÏôºÏ™Ω
+		//ƒ…∏Ø≈Õ∞° Ω√¿€«“∂ß πŸ∂Û∫∏¥¬ πÊ«‚¿∫ æ∆∑°¬ ¿‘¥œ¥Ÿ.
+		// 0 : ¿ß¬ , 1 : ø¿∏•¬ , 2 : æ∆∑°¬ , 3 : øﬁ¬ 
 
 	}
 
-	public void start(){ // Í∏∞Î≥∏Ï†ÅÏù∏ Î™ÖÎ†πÏ≤òÎ¶¨
-		System.out.println("Ïä§ÌÉÄÌä∏");
+	public void start(){ // ±‚∫ª¿˚¿Œ ∏Ì∑…√≥∏Æ
+		System.out.println("Ω∫≈∏∆Æ");
 		mf.addKeyListener(this);
 		th = new Thread(this);
 		th.start();
 	}
 
-	public void run(){ // Ïä§Î†àÎìú Î©îÏÜåÎìú, Î¨¥Ìïú Î£®ÌîÑ
+	public void run(){ // Ω∫∑πµÂ ∏ﬁº“µÂ, π´«— ∑Á«¡
 		while(true){
 			try{
 				keyProcess();
@@ -139,14 +139,14 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 	}
 
-	public void paint(Graphics g) { //ÎçîÎ∏îÎ≤ÑÌçºÎßÅÏùÑ ÏÇ¨Ïö©Ìï©ÎãàÎã§.
+	public void paint(Graphics g) { //¥ı∫Ìπˆ∆€∏µ¿ª ªÁøÎ«’¥œ¥Ÿ.
 		buffimg = createImage(1024, 768);
 		gc = buffimg.getGraphics();
 		update(g);
 	}
 
 	public void update(Graphics g) {
-		//ÎçîÎ∏î Î≤ÑÌçºÎßÅÏùÑ Ïù¥Ïö©Ìï¥ Î≤ÑÌçºÏóê Í∑∏Î†§ÏßÑÍ≤ÉÏùÑ Í∞ÄÏ†∏ÏòµÎãàÎã§.
+		//¥ı∫Ì πˆ∆€∏µ¿ª ¿ÃøÎ«ÿ πˆ∆€ø° ±◊∑¡¡¯∞Õ¿ª ∞°¡Æø…¥œ¥Ÿ.
 		DrawImg();
 		g.drawImage(buffimg, 0, 0, this);
 	}
@@ -159,7 +159,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 		switch(num) {
 		case 0 : gc.drawImage(vill, 0, 0, 1024, 768, this); break;
 		case 1 : gc.drawImage(center, 0, 0, 1024, 768, this); break; 
-		case 2 : gc.drawImage(pvp, 0, 0, 1024, 768, this); break;//SM_Ï∂îÍ∞Ä
+		case 2 : gc.drawImage(pvp, 0, 0, 1024, 768, this); break;//SM_√ﬂ∞°
 		case 3 : gc.drawImage(lab, 0, 0, 1024, 768, this); break;
 		case 4 : gc.drawImage(gym, 0, 0, 1024, 768, this); break;
 		case 5 : gc.drawImage(huntfield, 0, 0, 1024, 768, this); break;
@@ -167,27 +167,27 @@ class Map extends JPanel implements Runnable, KeyListener {
 		case 7 : gc.drawImage(h_water, 0, 0, 1024, 768, this); break;
 		case 8 : gc.drawImage(h_jungle, 0, 0, 1024, 768, this); break;
 		case 99 : gc.drawImage(mainPage, 0, 0, 904, 648, this);
-		gc.drawString("Í≤åÏûÑÏùÑ ÏãúÏûëÌïòÎ†§Î©¥ EnterÌÇ§Î•º ÎàÑÎ•¥ÏÑ∏Ïöî!", 280, 680);break;
+		gc.drawString("∞‘¿”¿ª Ω√¿€«œ∑¡∏È Enter≈∞∏¶ ¥©∏£ººø‰!", 280, 680);break;
 
 
 		}
 
-		//ÏúÑÎäî Îã®ÏàúÌûà Î¨¥ÌïúÎ£®ÌîÑ Ï†ÅÏö©Ïó¨Î∂ÄÏôÄ ÏºÄÎ¶≠ÌÑ∞ Î∞©Ìñ• Ï≤¥ÌÅ¨Î•º ÏúÑÌï¥
-		//ÎààÏúºÎ°ú Î≥¥Î©¥ÏÑú ÌÖåÏä§Ìä∏Ìï† Ïö©ÎèÑÎ°ú Ïì∞Ïù¥Îäî ÌÖçÏä§Ìä∏ ÌëúÏ∂úÏûÖÎãàÎã§.
+		//¿ß¥¬ ¥‹º¯»˜ π´«—∑Á«¡ ¿˚øÎø©∫ŒøÕ ƒ…∏Ø≈Õ πÊ«‚ √º≈©∏¶ ¿ß«ÿ
+		//¥´¿∏∑Œ ∫∏∏Èº≠ ≈◊Ω∫∆Æ«“ øÎµµ∑Œ æ≤¿Ã¥¬ ≈ÿΩ∫∆Æ «•√‚¿‘¥œ¥Ÿ.
 
 		MoveImage(img, x, y, pWidth, pHeight);
-		//ÏºÄÎ¶≠ÌÑ∞Î•º Í±∏Ïñ¥Í∞ÄÍ≤å ÎßåÎì§Í∏∞ ÏúÑÌï¥ Ï∂îÍ∞ÄÎ°ú ÎßåÎì† Î©îÏÜåÎìú ÏûÖÎãàÎã§.
+		//ƒ…∏Ø≈Õ∏¶ ∞…æÓ∞°∞‘ ∏∏µÈ±‚ ¿ß«ÿ √ﬂ∞°∑Œ ∏∏µÁ ∏ﬁº“µÂ ¿‘¥œ¥Ÿ.
 	}
 
 	public void MoveImage(Image img, int x, int y, int width, int height) {
-		//ÏºÄÎ¶≠ÌÑ∞ Ïù¥ÎØ∏ÏßÄ, ÏºÄÎ¶≠ÌÑ∞ ÏúÑÏπò, ÏºÄÎ¶≠ÌÑ∞ ÌÅ¨Í∏∞Î•º Î∞õÏäµÎãàÎã§. 
-		//Î∞õÏùÄ Í∞íÏùÑ Ïù¥Ïö©Ìï¥ÏÑú ÏúÑÏùò Ïù¥ÎØ∏ÏßÄÏπ©ÏÖãÏóêÏÑú ÏºÄÎ¶≠ÌÑ∞Î•º ÏûòÎùºÎÇ¥
-		//ÌëúÏ∂úÌïòÎèÑÎ°ù Í≥ÑÏÇ∞ÌïòÎäî Î©îÏÜåÎìú ÏûÖÎãàÎã§.
+		//ƒ…∏Ø≈Õ ¿ÃπÃ¡ˆ, ƒ…∏Ø≈Õ ¿ßƒ°, ƒ…∏Ø≈Õ ≈©±‚∏¶ πﬁΩ¿¥œ¥Ÿ. 
+		//πﬁ¿∫ ∞™¿ª ¿ÃøÎ«ÿº≠ ¿ß¿« ¿ÃπÃ¡ˆƒ®º¬ø°º≠ ƒ…∏Ø≈Õ∏¶ ¿ﬂ∂Û≥ª
+		//«•√‚«œµµ∑œ ∞ËªÍ«œ¥¬ ∏ﬁº“µÂ ¿‘¥œ¥Ÿ.
 
 		gc.setClip(x  , y, width, height);
-		//ÌòÑÏû¨ Ï¢åÌëúÏóêÏÑú ÏºÄÎ¶≠ÌÑ∞Ïùò ÌÅ¨Í∏∞ ÎßåÌÅº Ïù¥ÎØ∏ÏßÄÎ•º ÏûòÎùº Í∑∏Î¶ΩÎãàÎã§.
+		//«ˆ¿Á ¡¬«•ø°º≠ ƒ…∏Ø≈Õ¿« ≈©±‚ ∏∏≈≠ ¿ÃπÃ¡ˆ∏¶ ¿ﬂ∂Û ±◊∏≥¥œ¥Ÿ.
 
-		if( playerMove ){ // ÏºÄÎ¶≠ÌÑ∞Ïùò ÏõÄÏßÅÏûÑ Ïó¨Î∂ÄÎ•º ÌåêÎã®Ìï©ÎãàÎã§.
+		if( playerMove ){ // ƒ…∏Ø≈Õ¿« øÚ¡˜¿” ø©∫Œ∏¶ ∆«¥‹«’¥œ¥Ÿ.
 			if ( cnt / 10 % 4 == 0 ){ gc.drawImage(img,
 					x - ( width * 0 ), y - ( height * moveStatus ), this);
 
@@ -200,18 +200,18 @@ class Map extends JPanel implements Runnable, KeyListener {
 			}else  if(cnt/10%4 == 3){ gc.drawImage(img,
 					x - ( width * 1 ), y - ( height * moveStatus ), this);
 			}
-			//ÏºÄÎ¶≠ÌÑ∞Ïùò Î∞©Ìñ•Ïóê Îî∞Îùº Í±∏Ïñ¥Í∞ÄÎäî Î™®ÏÖòÏùÑ Ï∑®ÌïòÎäî 
-			//ÏºÄÎ¶≠ÌÑ∞ Ïù¥ÎØ∏ÏßÄÎ•º ÏãúÍ∞ÑÏ∞®Î•º Ïù¥Ïö©Ìï¥ ÏàúÏ∞®Ï†ÅÏúºÎ°ú Í∑∏Î¶ΩÎãàÎã§.
+			//ƒ…∏Ø≈Õ¿« πÊ«‚ø° µ˚∂Û ∞…æÓ∞°¥¬ ∏º«¿ª √Î«œ¥¬ 
+			//ƒ…∏Ø≈Õ ¿ÃπÃ¡ˆ∏¶ Ω√∞£¬˜∏¶ ¿ÃøÎ«ÿ º¯¬˜¿˚¿∏∑Œ ±◊∏≥¥œ¥Ÿ.
 
 		}else {gc.drawImage(img, x - ( width * 1 ), 
 				y - ( height * moveStatus ), this); 
-		//ÏºÄÎ¶≠ÌÑ∞Í∞Ä ÏõÄÏßÅÏù¥ÏßÄ ÏïäÏúºÎ©¥ Ï†ïÏßÄÌïú ÏºÄÎ¶≠ÌÑ∞Î•º Í∑∏Î¶ΩÎãàÎã§.
+		//ƒ…∏Ø≈Õ∞° øÚ¡˜¿Ã¡ˆ æ ¿∏∏È ¡§¡ˆ«— ƒ…∏Ø≈Õ∏¶ ±◊∏≥¥œ¥Ÿ.
 		}
 	}
 
 	public void keyProcess(){
-		//Ïó¨Í∏∞ÏÑúÎäî Îã®Ïàú ÏºÄÎ¶≠ÌÑ∞Í∞Ä Ïù¥ÎèôÌïòÎäî Ï¢åÌëú ÎßêÍ≥†ÎèÑ
-		//ÏºÄÎ¶≠ÌÑ∞Ïùò ÏõÄÏßÅÏûÑ Ïó¨Î∂ÄÎ∞è Î∞©Ìñ•ÏùÑ Ï≤¥ÌÅ¨ Ìï©ÎãàÎã§.
+		//ø©±‚º≠¥¬ ¥‹º¯ ƒ…∏Ø≈Õ∞° ¿Ãµø«œ¥¬ ¡¬«• ∏ª∞Ìµµ
+		//ƒ…∏Ø≈Õ¿« øÚ¡˜¿” ø©∫Œπ◊ πÊ«‚¿ª √º≈© «’¥œ¥Ÿ.
 		playerMove = false;
 
 		if (keyUp && y > -10 && keyDown == false){
@@ -247,8 +247,8 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 
-		if(escCtn==0&&e.getKeyCode() == 27) { //SM_Ï∂îÍ∞Ä//Í∏∞Ï°¥Í∫ºÎäî MarketÏóêÏÑú Ïò§Î•ò Î∞úÏÉù
-			System.out.println("esc ÎàÑÎ¶Ñ = Ïú†Ï†ÄÎ©îÎâ¥");
+		if(escCtn==0&&e.getKeyCode() == 27) { //SM_√ﬂ∞°//±‚¡∏≤®¥¬ Marketø°º≠ ø¿∑˘ πﬂª˝
+			System.out.println("esc ¥©∏ß = ¿Ø¿˙∏ﬁ¥∫");
 
 			m.setVisible(false);
 			mf.add(ump);
@@ -284,13 +284,13 @@ class Map extends JPanel implements Runnable, KeyListener {
 		}
 
 		//--------------------------------------
-		//Ï≤¥Ïú°Í¥Ä
+		//√º¿∞∞¸
 		if( num == 4 && (x > 390 && x<440) && (y>670)) {
 			num =0;
 			x= 488;
 			y = 150;
 		}
-		//ÎßàÏùÑ_Ï≤¥Ïú°Í¥ÄÏûÖ
+		//∏∂¿ª_√º¿∞∞¸¿‘
 		if( num ==0 &&(x >480 && x <510) && (y<148)) {
 
 			num =4;
@@ -298,41 +298,41 @@ class Map extends JPanel implements Runnable, KeyListener {
 			y=670;
 		}
 		//--------------------------------------
-		//Ïó∞Íµ¨ÏÜå
+		//ø¨±∏º“
 		if( num == 3 && (x > 500 && x<550) && (y>670)) {
 			num =0;
 			x= 180;
 			y = 140;
 		}
-		//ÎßàÏùÑ_Ïó∞Íµ¨ÏÜåÏûÖ
+		//∏∂¿ª_ø¨±∏º“¿‘
 		if( num ==0 &&(x > 170 && x < 200) && (y<140)){
 			num =3;
 			x = 525;
 			y=670;
 		}
 		//--------------------------------------
-		//ÏÑºÌÑ∞
+		//ºæ≈Õ
 		if( num == 1 && (x > 450 && x<500) && (y>670)) {
 			num =0;
 			x= 765;
 			y = 610;
 		}
-		//ÎßàÏùÑ_ÏÑºÌÑ∞ÏûÖ
+		//∏∂¿ª_ºæ≈Õ¿‘
 		if( num == 0 && (x > 750 && x< 780) && (y<610 && y>550)) {
 			num =1;
 			x= 475;
 			y = 670;	
 		}
-		//ÏÑºÌÑ∞ÏóêÏÑú pvpÎåÄÍ∏∞Ïã§Î°ú
+		//ºæ≈Õø°º≠ pvp¥Î±‚Ω«∑Œ
 		if(num == 1 && (x>415 &&x<520)&&(y<10)) {
 			num=2;
 			x=480;
 			y=650;
 		}
-		//ÏÑºÌÑ∞ÏóêÏÑú ÏÉÅÏ†ê Ïù¥Ïö©ÌïòÍ∏∞
+		//ºæ≈Õø°º≠ ªÛ¡° ¿ÃøÎ«œ±‚
 		if(num == 1 && (x>190&&x<250)&&(y>350&&y<375)){
 			escCtn=1;
-			System.out.println("ÏÉÅÏ†ê Ïù¥Ïö©");
+			System.out.println("ªÛ¡° ¿ÃøÎ");
 			//this.market = new Market(mf,m);
 			m.setVisible(false);
 			mf.add(marketView);
@@ -344,7 +344,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 			//ChangePanel.changePanel(mf, this, new Market(mf,m));
 		}
-		//pvpÎåÄÍ∏∞Ïã§ÏóêÏÑú ÏÑºÌÑ∞Î°ú
+		//pvp¥Î±‚Ω«ø°º≠ ºæ≈Õ∑Œ
 		if(num==2) {
 			if((x>450&&x<500)&&(y>670)){
 				num=1;
@@ -355,67 +355,67 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 
 		//--------------------------------------
-		//ÏÇ¨ÎÉ•ÌÑ∞
+		//ªÁ≥…≈Õ
 		if(num == 5 && (x > 460 && x < 560) && (y < 0)) {
 			num = 0;
 			x = 490;
 			y = 670;
 		}
-		//ÎßàÏùÑ_ÏÇ¨ÎÉ•ÌÑ∞ÏûÖ
+		//∏∂¿ª_ªÁ≥…≈Õ¿‘
 		if(num == 0 && (x > 450 && x < 520) && (y > 670)) {
 			num = 5;
 			x = 510;
 			y = 0;
 		}
-		//ÏÇ¨ÎÉ•ÌÑ∞_Î∂à
+		//ªÁ≥…≈Õ_∫“
 		if(num == 5 && (x < 0) && (y > 260 & y < 410)) {
 			num = 6;
 			x = 510;
 			y = 0;
 		}
-		//Î∂àÏÇ¨ÎÉ•ÌÑ∞ Ìá¥Ïû•
+		//∫“ªÁ≥…≈Õ ≈¿Â
 		if(num == 6 && (x > 460 && x < 560) && (y < 0)) {
 			num = 5;
 			x = 10;
 			y = 335;
 		}
-		//ÏÇ¨ÎÉ•ÌÑ∞_Î¨º
+		//ªÁ≥…≈Õ_π∞
 		if(num == 5 && (x > 979) && (y > 260 & y < 410)) {
 			num = 7;
 			x = 510;
 			y = 0;
 		}
-		//Î¨ºÏÇ¨ÎÉ•ÌÑ∞ Ìá¥Ïû•
+		//π∞ªÁ≥…≈Õ ≈¿Â
 		if(num == 7 && (x > 400 && x < 510) && (y < 0)) {
 			num = 5;
 			x = 979;
 			y = 335;
 		}
-		//ÏÇ¨ÎÉ•ÌÑ∞_ÌíÄ
+		//ªÁ≥…≈Õ_«Æ
 		if(num == 5 && (x > 460 && x < 560) && (y > 680)) {
 			num = 8;
 			x = 510;
 			y = 0;
 		}
-		//ÌíÄÏÇ¨ÎÉ•ÌÑ∞ Ìá¥Ïû•
+		//«ÆªÁ≥…≈Õ ≈¿Â
 		if(num == 8 && (x > 450 && x < 580) && (y < 0)) {
 			num = 5;
 			x = 510;
 			y = 670;
 		}
 		//--------------------------------------
+	}
 
 
-
-	//---------------------------Ïù¥ÎèôÎ∂àÍ∞Ä Ïò§Î∏åÏ†ùÌä∏ ÏÑ§Ï†ï----------------------------------
+	//---------------------------¿Ãµø∫“∞° ø¿∫Í¡ß∆Æ º≥¡§----------------------------------
 	void collision()
 	{
-		Rectangle rect = new Rectangle(x, y, pWidth, pHeight);//ÌîåÎ†àÏù¥Ïñ¥ ÌÅ¨Í∏∞
-		//ÎßàÏùÑ Ïò§Î∏åÏ†ùÌä∏------------------------------------------------
+		Rectangle rect = new Rectangle(x, y, pWidth, pHeight);//«√∑π¿ÃæÓ ≈©±‚
+		//∏∂¿ª ø¿∫Í¡ß∆Æ------------------------------------------------
 		if(num == 0) {
-			Rectangle building1 = new Rectangle(300, 430, 90, 135);//Í±¥Î¨ºÌÅ¨Í∏∞
-			if(rect.intersects(building1)){canMove();}//Ï∂©ÎèåÍ≤ÄÏÇ¨
-			Rectangle buildingLABGYM = new Rectangle(60, -12, 580, 145);//Ïó∞Íµ¨ÏÜå,Ï≤¥Ïú°Í¥Ä
+			Rectangle building1 = new Rectangle(300, 430, 90, 135);//∞«π∞≈©±‚
+			if(rect.intersects(building1)){canMove();}//√Êµπ∞ÀªÁ
+			Rectangle buildingLABGYM = new Rectangle(60, -12, 580, 145);//ø¨±∏º“,√º¿∞∞¸
 			if(rect.intersects(buildingLABGYM)){canMove();}
 			Rectangle buildingyard = new Rectangle(220, 140, 260, 70);
 			if(rect.intersects(buildingyard)){canMove();}
@@ -459,7 +459,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 		//--------------------------------------------------------
 		Rectangle house = new Rectangle(860, 130, 30, 30);
 		if(rect.intersects(house)){
-			int result = JOptionPane.showConfirmDialog(null, "Ï†ïÎßê Ï¢ÖÎ£åÌïòÏãúÍ≤†ÏäµÎãàÍπå?", "Ï¢ÖÎ£å ÌôïÏù∏", JOptionPane.YES_NO_OPTION);
+			int result = JOptionPane.showConfirmDialog(null, "¡§∏ª ¡æ∑·«œΩ√∞⁄Ω¿¥œ±Ó?", "¡æ∑· »Æ¿Œ", JOptionPane.YES_NO_OPTION);
 			if(result == JOptionPane.YES_OPTION) {
 				System.exit(0);
 			}else {
@@ -469,26 +469,24 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 			
 
-		}//Ï∂©ÎèåÍ≤ÄÏÇ¨
+		}//√Êµπ∞ÀªÁ
 
-		//space
-		if(e.getKeyCode() == 32) {
-			System.out.println("xÏ¢åÌëú: " + x + " yÏ¢åÌëú: " + y);
-		}
 		
-		//Î¨º ÏÇ¨ÎÉ•ÌÑ∞ Ï¢åÌëúÍ∞í 1
+	
+		
+		//π∞ ªÁ≥…≈Õ ¡¬«•∞™ 1
 		if(num == 7 && (x > 520 && x < 600) && (y > 150 && y < 215)){
 			x = 520;
 			y = 220;
 					
-			System.out.println("Î∞∞ÌãÄÌéòÏù¥ÏßÄ");
+			System.out.println("πË∆≤∆‰¿Ã¡ˆ");
 			m.setVisible(false);
 			mf.add(bp);
 			bp.setVisible(true);
 			run();
 		}
 		
-		/*//keypresseÎ•º Ï∂îÍ∞Ä
+		/*//keypresse∏¶ √ﬂ∞°
 		if(num == 7 && keyEvent ) {
 			for(int i = 0; i < 10; i++) {
 				int xs = new Random().nextInt(275) + 1;
@@ -505,34 +503,34 @@ class Map extends JPanel implements Runnable, KeyListener {
 		
 		
 		
-		//Ï≤¥Ïú°Í¥Ä Î∞∞ÌãÄ Ï≤´Î≤àÏß∏
+		//√º¿∞∞¸ πË∆≤ √ππ¯¬∞
 		int ctn2 = 0;
 		if(num == 4 && (ctn2 == ctn - 1)&& (x > 24 && x < 75) && (y > 200 && y < 240)){
 			x = 50;
 			y = 245;
 			ctn += 1 ;
 					
-			System.out.println("NpcÎ∞∞ÌãÄÌéòÏù¥ÏßÄ");
+			System.out.println("NpcπË∆≤∆‰¿Ã¡ˆ");
 			m.setVisible(false);
 			mf.add(nbp);
 			nbp.setVisible(true);
 			run();
 		}
 		
-		//Ï≤¥Ïú°Í¥Ä Î∞∞ÌãÄ ÎëêÎ≤àÏß∏
+		//√º¿∞∞¸ πË∆≤ µŒπ¯¬∞
 		if(num == 4 &&(ctn == 0)&& (x > 20 && x < 76) && (y > 580 && y < 615)){
 			x = 80;
 			y = 615;
 			ctn += 1;
 					
-			System.out.println("NpcÎ∞∞ÌãÄÌéòÏù¥ÏßÄ");
+			System.out.println("NpcπË∆≤∆‰¿Ã¡ˆ");
 			m.setVisible(false);
 			mf.add(nbp);
 			nbp.setVisible(true);
 			run();
 		}
 		
-		//Í¥ÄÏû•Îãò Î∞∞ÌãÄ Ï∂îÍ∞ÄÌï¥Ïïº Ìï®
+		//∞¸¿Â¥‘ πË∆≤ √ﬂ∞°«ÿæﬂ «‘
 
 
 
@@ -550,8 +548,8 @@ class Map extends JPanel implements Runnable, KeyListener {
 		}
 	}
 
-	//SM_Ï∂îÍ∞Ä
-	//escCtn ÌïÑÎìú ÎïåÎ¨∏Ïóê Ï∂îÍ∞Ä MarketÏóêÏÑú escCtnÍ∞íÏùÑ Î≥ÄÍ≤ΩÌïòÍ∏∞ ÏúÑÌï¥ ÏÇ¨Ïö©   
+	//SM_√ﬂ∞°
+	//escCtn « µÂ ∂ßπÆø° √ﬂ∞° Marketø°º≠ escCtn∞™¿ª ∫Ø∞Ê«œ±‚ ¿ß«ÿ ªÁøÎ   
 	public int getEscCtn() {
 		return escCtn;
 	}

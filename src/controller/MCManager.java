@@ -24,7 +24,7 @@ public class MCManager {
 				check=(id.getItemList().get(i).getiPrice())*itemAmount;
 				//유저인벤에 있는 소지금액과 비교 후	
 				//소지금액<check : 소지금액이 적어 구매가 불가능 합니다 출력 : MarketView에서 바로 출력함
-				if(um.getuGold()<check) {
+				if(um.getUserGold()<check) {
 					//구매 불가
 					resultNo="응 못사";
 				}else {
