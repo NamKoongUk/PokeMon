@@ -40,10 +40,6 @@ public class UserInfoPage extends JPanel implements KeyListener{
 		uip.setOpaque(false);
 		uip.setBounds(0, 0, 1024, 768);
 		
-		User user = new User("¿Ã∏ß",new Date(),100000);
-		UserDao ud = new UserDao(user);
-		UserManager um = new UserManager(user,ud);
-		
 		userNameLabel = new JLabel();
 		playTimeLabel = new JLabel();
 		userNameLabel.setText(UserManager.viewUserName());
