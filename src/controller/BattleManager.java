@@ -8,10 +8,8 @@ import model.dao.UserDao;
 import view.PInfoPage;
 
 public class BattleManager {
-
 	private UserDao ud = new UserDao();
 	private PInfoPage pip;
-
 
 	public void show_p(PInfoPage pip) {
 		this.pip = pip;
