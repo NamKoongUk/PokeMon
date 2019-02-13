@@ -17,7 +17,6 @@ public class StartPage extends JPanel{
 	private Map m;
 	
 	public StartPage(MainFrame mf, Map m) {
-		UserManager um = new UserManager();
 		this.mf = mf;
 		this.m = m;
 		this.stp = this;
@@ -36,7 +35,7 @@ public class StartPage extends JPanel{
 			public void mousePressed(MouseEvent e) {
 				
 				String result = JOptionPane.showInputDialog("모험을 시작할 이름을 정해주세요!");
-				um.createUser(result);
+				UserManager.createUser(result);
 				mf.remove(stp);
 				m.setVisible(true);
 				mf.requestFocus();
