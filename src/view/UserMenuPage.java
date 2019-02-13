@@ -11,6 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.BattleManager;
+
 
 public class UserMenuPage extends JPanel {
 	public final static int ESC = 27;
@@ -30,10 +32,11 @@ public class UserMenuPage extends JPanel {
 	private JButton userInvenButton = new JButton(new ImageIcon("images/userMenuImages/userInvenButtonBasic.PNG"));
 	private JButton backButton = new JButton(new ImageIcon("images/userMenuImages/backButtonBasic.png"));
 
-
+	
 
 
 	public UserMenuPage(MainFrame mf, JPanel panel) {
+		
 		this.ump = this;
 		this.mf = mf;
 		this.m = (Map) panel;
@@ -132,6 +135,7 @@ public class UserMenuPage extends JPanel {
 				ump.setVisible(false);
 				uip.setVisible(true);
 				mf.add(uip);
+				
 			}
 		});
 		this.add(userInfoButton);

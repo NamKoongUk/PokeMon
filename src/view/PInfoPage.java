@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import controller.BattleManager;
 import model.vo.Pokemon;
 
 public class PInfoPage extends JPanel{
@@ -27,6 +28,7 @@ public class PInfoPage extends JPanel{
 	private JButton backButton = new JButton(new ImageIcon("images/userMenuImages/backButtonBasic.png"));
 
 	public PInfoPage(MainFrame mf, UserMenuPage ump) {
+		
 		this.mf = mf;
 		this.pip = this;
 		this.ump = ump;
@@ -42,6 +44,7 @@ public class PInfoPage extends JPanel{
 		}
 		for(int i=0; i < pInfo.length; i++) {
 			pInfoText[i] = new JTextArea();
+			
 			pInfoText[i].setBackground(new Color(0,0,0,0));
 		}
 		
@@ -64,7 +67,7 @@ public class PInfoPage extends JPanel{
 								+"\tÃ¼    ·Â  : " + pHp + "\n"
 								);
 		}*/
-		
+		new BattleManager().show_p(this);
 		
 		mf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
@@ -106,15 +109,15 @@ public class PInfoPage extends JPanel{
 		});
 
 		label.setBounds(450, 20, 200, 40);
-		pInfo[0].setBounds(180, 30, 300, 200);
-		pInfo[1].setBounds(520, 30, 300, 200);
-		pInfo[2].setBounds(180, 380, 300, 200);
-		pInfo[3].setBounds(520, 380, 300, 200);
+		pInfo[0].setBounds(180, 30, 300, 160);
+		pInfo[1].setBounds(520, 30, 300, 160);
+		pInfo[2].setBounds(180, 380, 300, 160);
+		pInfo[3].setBounds(520, 380, 300, 160);
 		
-		pInfoText[0].setBounds(180,220,300,150);
-		pInfoText[1].setBounds(520,220,300,150);
-		pInfoText[2].setBounds(180,600,300,150);
-		pInfoText[3].setBounds(520,600,300,150);
+		pInfoText[0].setBounds(180,220,300,130);
+		pInfoText[1].setBounds(520,220,300,130);
+		pInfoText[2].setBounds(180,570,300,130);
+		pInfoText[3].setBounds(520,570,300,130);
 
 		pip.add(label);
 		
@@ -127,6 +130,22 @@ public class PInfoPage extends JPanel{
 		pip.add(pInfoText[1]);
 		pip.add(pInfoText[2]);
 		pip.add(pInfoText[3]);
+	}
+
+	public JLabel[] getpInfo() {
+		return pInfo;
+	}
+
+	public void setpInfo(JLabel[] pInfo) {
+		this.pInfo = pInfo;
+	}
+
+	public JTextArea[] getpInfoText() {
+		return pInfoText;
+	}
+
+	public void setpInfoText(JTextArea[] pInfoText) {
+		this.pInfoText = pInfoText;
 	}
 
 
