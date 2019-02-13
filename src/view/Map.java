@@ -13,6 +13,7 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 
 class Map extends JPanel implements Runnable, KeyListener {
@@ -23,8 +24,9 @@ class Map extends JPanel implements Runnable, KeyListener {
 	private UserMenuPage ump; 
 	private MarketView marketView;//SM_추가
 	private int movementSP = 3;
-
 	
+	private StartPage stp;
+
 	private BattlePage bp;
 	private BattleSkillPage bsp;
 	private NpcBattlePage nbp;
@@ -37,6 +39,8 @@ class Map extends JPanel implements Runnable, KeyListener {
 	private boolean keyRight = false; 
 	private boolean playerMove = false;
 	private boolean sprint = false;
+	private boolean cantmove = false;
+
 
 	private Toolkit tk = Toolkit.getDefaultToolkit();
 
@@ -71,11 +75,11 @@ class Map extends JPanel implements Runnable, KeyListener {
 	public Map(MainFrame mf) {
 
 		System.out.println("맵 클래스 실행...");
-
+		
 		this.mf = mf;
 		this.m = this;
 		this.ump = new UserMenuPage(mf, m);
-		
+		this.stp = new StartPage(mf, m);
 		this.bp = new BattlePage(mf, m);	//BattlePage 추가
 		this.nbp = new NpcBattlePage(mf, m);
 
@@ -214,26 +218,26 @@ class Map extends JPanel implements Runnable, KeyListener {
 		//케릭터의 움직임 여부및 방향을 체크 합니다.
 		playerMove = false;
 
-		if (keyUp && y > -10 && keyDown == false){
+		if (cantmove == false && keyUp && y > -10 && keyDown == false){
 			playerMove = true;
 			y -= movementSP;
 			moveStatus = 0;
 		}
 
-		if (keyDown && y < 690){
+		if (cantmove == false && keyDown && y < 690){
 			y += movementSP;
 			moveStatus = 2;
 			playerMove = true;
 		}
 
-		if (keyLeft && x > -20 && keyDown == false && keyUp == false){
+		if (cantmove == false && keyLeft && x > -20 && keyDown == false && keyUp == false){
 			x -= movementSP;
 
 			moveStatus = 3;
 			playerMove = true;
 		}
 
-		if (keyRight && x < 950 && keyDown == false && keyUp == false){
+		if (cantmove == false && keyRight && x < 980 && keyDown == false && keyUp == false){
 			x += movementSP;
 			moveStatus = 1;
 			playerMove = true;
@@ -275,6 +279,10 @@ class Map extends JPanel implements Runnable, KeyListener {
 			break;
 		case KeyEvent.VK_ENTER :
 			if(num == 99) {
+				m.setVisible(false);
+				mf.add(stp);
+				stp.setVisible(true);
+				run();
 				num = 0;
 				break;
 			}
@@ -445,6 +453,8 @@ class Map extends JPanel implements Runnable, KeyListener {
 			if(rect.intersects(forest2)){canMove();}
 			Rectangle forest3 = new Rectangle(560, 690, 500, 30);
 			if(rect.intersects(forest3)){canMove();}
+			Rectangle forest4 = new Rectangle(990, 200, 5, 600);
+			if(rect.intersects(forest4)){canMove();}
 			Rectangle lake = new Rectangle(100, 470, 160, 120);
 			if(rect.intersects(lake)){canMove();}
 			Rectangle lake2 = new Rectangle(60, 580, 110, 40);
@@ -455,81 +465,81 @@ class Map extends JPanel implements Runnable, KeyListener {
 			if(rect.intersects(pump)){canMove();}
 			Rectangle flower = new Rectangle(900, 183, 100, 25);
 			if(rect.intersects(flower)){canMove();}
+			
+			Rectangle house = new Rectangle(860, 130, 30, 30);
+			if(rect.intersects(house)){
+				int result = JOptionPane.showConfirmDialog(null, "정말 종료하시겠습니까?", "종료 확인", JOptionPane.YES_NO_OPTION);
+				if(result == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}else {
+					y += 10;
+					keyUp = false;
+				}
+			}//충돌검사
 		}
 		//--------------------------------------------------------
-		Rectangle house = new Rectangle(860, 130, 30, 30);
-		if(rect.intersects(house)){
-			int result = JOptionPane.showConfirmDialog(null, "정말 종료하시겠습니까?", "종료 확인", JOptionPane.YES_NO_OPTION);
-			if(result == JOptionPane.YES_OPTION) {
-				System.exit(0);
-			}else {
-				y += 10;
-				keyUp = false;
-			}
-
-			
-
-		}//충돌검사
-
-		
-	
-		
-		//물 사냥터 좌표값 1
-		if(num == 7 && (x > 520 && x < 600) && (y > 150 && y < 215)){
-			x = 520;
-			y = 220;
-					
-			System.out.println("배틀페이지");
-			m.setVisible(false);
-			mf.add(bp);
-			bp.setVisible(true);
-			run();
+		//네갈래길 오브젝트------------------------------------------------
+		if(num == 5) {
+			Rectangle h_lamp = new Rectangle(515, 290, 25, 80);
+			if(rect.intersects(h_lamp)){canMove();}
+			Rectangle h_forest1 = new Rectangle(590, -12, 400, 65);
+			if(rect.intersects(h_forest1)){canMove();}
+			Rectangle h_forest2 = new Rectangle(0, -12, 460, 65);
+			if(rect.intersects(h_forest2)){canMove();}
+			Rectangle h_forest3 = new Rectangle(-21, 54, 40, 210);
+			if(rect.intersects(h_forest3)){canMove();}
+			Rectangle h_forest4 = new Rectangle(-21, 440, 40, 210);
+			if(rect.intersects(h_forest4)){canMove();}
+			Rectangle h_forest5 = new Rectangle(21, 645, 440, 65);
+			if(rect.intersects(h_forest5)){canMove();}
+			Rectangle h_forest6 = new Rectangle(585, 645, 440, 65);
+			if(rect.intersects(h_forest6)){canMove();}
 		}
-		
-		/*//keypresse를 추가
-		if(num == 7 && keyEvent ) {
-			for(int i = 0; i < 10; i++) {
-				int xs = new Random().nextInt(275) + 1;
-				int ys = new Random().nextInt(475) + 1;
-				int xe = xs + 100;
-				int ye = ys + 100;
-				if(x > xs && x < xe && y > ys && y < ye) {
-			}
-				System.out.println(ys);
-				System.out.println(xs);
-					
+		//물 사냥터 좌표값 1
+		if(num == 7 && playerMove == true) {
+			Rectangle h_wrange = new Rectangle(25, 340, 900, 330);
+			if(rect.intersects(h_wrange)){
+				int hrand = new Random().nextInt(100);
+				if(hrand == 30) {
+					cantmove = true;
+					System.out.println("배틀페이지");
+					m.setVisible(false);
+					mf.add(bp);
+					bp.setVisible(true);
+					run();
+					cantmove = false;
+
 				}
-			}*/
-		
-		
-		
+			}
+		}
+
 		//체육관 배틀 첫번째
 		int ctn2 = 0;
 		if(num == 4 && (ctn2 == ctn - 1)&& (x > 24 && x < 75) && (y > 200 && y < 240)){
 			x = 50;
 			y = 245;
 			ctn += 1 ;
-					
+
 			System.out.println("Npc배틀페이지");
 			m.setVisible(false);
 			mf.add(nbp);
 			nbp.setVisible(true);
 			run();
 		}
-		
+
 		//체육관 배틀 두번째
 		if(num == 4 &&(ctn == 0)&& (x > 20 && x < 76) && (y > 580 && y < 615)){
 			x = 80;
 			y = 615;
 			ctn += 1;
-					
+
 			System.out.println("Npc배틀페이지");
 			m.setVisible(false);
 			mf.add(nbp);
 			nbp.setVisible(true);
 			run();
 		}
-		
+
 		//관장님 배틀 추가해야 함
 
 
