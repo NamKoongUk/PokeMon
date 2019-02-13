@@ -1,12 +1,13 @@
 package model.dao;
 
+import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 
 import model.vo.Item;
 import model.vo.Pokemon;
-import model.vo.User;
 
 public class UserDao {
 
@@ -14,10 +15,15 @@ public class UserDao {
 	private List<Pokemon> up_list = new ArrayList<Pokemon>(4);
 	private List<Item> ui_list = new ArrayList<Item>();
 	private List<Pokemon> tp_list = new ArrayList<Pokemon>();
-
+	private Image img = new ImageIcon("").getImage();
 	
 	public UserDao() {
 		ui_list.add(new Item());
+		up_list.add(new Pokemon("帕备府",104,0,false,img,1));
+		up_list.add(new Pokemon("帕备府",104,0,false,img,1));
+		up_list.add(new Pokemon("帕备府",104,0,false,img,1));
+		up_list.add(new Pokemon("帕备府",104,0,false,img,1));
+		
 	}
 	
 	
