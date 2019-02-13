@@ -4,12 +4,15 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 class Map extends JPanel implements Runnable, KeyListener {
 
@@ -19,6 +22,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 	private UserMenuPage ump; 
 	private MarketView marketView;//SM_추가
 	private int movementSP = 3;
+	private int canMove = 1;
 
 	private boolean keyUp = false;
 	private boolean keyDown = false;
@@ -29,9 +33,9 @@ class Map extends JPanel implements Runnable, KeyListener {
 
 	private Toolkit tk = Toolkit.getDefaultToolkit();
 
+	private Image img = new ImageIcon("images/userF.PNG").getImage();
 	private Image gym = new ImageIcon("images/gym.PNG").getImage();
 	private Image vill = new ImageIcon("images/main.PNG").getImage();
-	private Image img = new ImageIcon("images/img.PNG").getImage();
 	private Image lab = new ImageIcon("images/lab.png").getImage();
 	private Image center = new ImageIcon("images/Center.png").getImage();
 	private Image huntfield = new ImageIcon("images/HuntFieldPage.png").getImage();
@@ -48,6 +52,8 @@ class Map extends JPanel implements Runnable, KeyListener {
 	private Thread th;
 
 	private int x, y; // 케릭터의 현재 좌표를 받을 변수
+	private int pWidth = 31, pHeight = 32;
+
 	private int cnt; //무한 루프를 카운터 하기 위한 변수
 	private int moveStatus; //케릭터가 어디를 바라보는지 방향을 받을 변수
 	private int num = 99;
@@ -105,7 +111,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 			try{
 				keyProcess();
 				repaint();
-
+				collision();
 				Thread.sleep(20);
 				cnt++;
 
@@ -159,12 +165,12 @@ class Map extends JPanel implements Runnable, KeyListener {
 		//위는 단순히 무한루프 적용여부와 케릭터 방향 체크를 위해
 		//눈으로 보면서 테스트할 용도로 쓰이는 텍스트 표출입니다.
 
-		MoveImage(img, x, y, 32, 32);
+		MoveImage(img, x, y, pWidth, pHeight);
 		//케릭터를 걸어가게 만들기 위해 추가로 만든 메소드 입니다.
 	}
 
 	public void MoveImage(Image img, int x, int y, int width, int height) {
-		//케릭터 이미지, 케릭터 위치, 케릭터 크기를 받습니다.
+		//케릭터 이미지, 케릭터 위치, 케릭터 크기를 받습니다. 
 		//받은 값을 이용해서 위의 이미지칩셋에서 케릭터를 잘라내
 		//표출하도록 계산하는 메소드 입니다.
 
@@ -198,31 +204,32 @@ class Map extends JPanel implements Runnable, KeyListener {
 		//케릭터의 움직임 여부및 방향을 체크 합니다.
 		playerMove = false;
 
-		if ( keyUp && y > -10 && keyDown == false){
+		if (keyUp && y > -10 && keyDown == false){
 			playerMove = true;
 			y -= movementSP;
-			moveStatus = 3;
-		}
-
-		if ( keyDown && y < 690){
-			y += movementSP;
 			moveStatus = 0;
-			playerMove = true;
 		}
 
-		if ( keyLeft && x > -20 && keyDown == false && keyUp == false){
-			x -= movementSP;
-			moveStatus = 1;
-			playerMove = true;
-		}
-
-		if ( keyRight && x < 980 && keyDown == false && keyUp == false){
-			x += movementSP;
+		if (keyDown && y < 690){
+			y += movementSP;
 			moveStatus = 2;
 			playerMove = true;
+		}
+
+		if (keyLeft && x > -20 && keyDown == false && keyUp == false){
+			x -= movementSP;
+
+			moveStatus = 3;
+			playerMove = true;
+		}
+
+		if (keyRight && x < 950 && keyDown == false && keyUp == false){
+			x += movementSP;
+			moveStatus = 1;
+			playerMove = true;
 
 		}
-		
+
 		if (sprint) {
 			movementSP = 6;
 		}
@@ -288,7 +295,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 			y = 140;
 		}
 		//마을_연구소입
-		if( num ==0 &&(x > 170 && x < 200) && (y<130)){
+		if( num ==0 &&(x > 170 && x < 200) && (y<140)){
 			num =3;
 			x = 525;
 			y=670;
@@ -388,9 +395,86 @@ class Map extends JPanel implements Runnable, KeyListener {
 		}
 		//--------------------------------------
 
+	}
 
+	//---------------------------이동불가 오브젝트 설정----------------------------------
+	void collision()
+	{
+		Rectangle rect = new Rectangle(x, y, pWidth, pHeight);//플레이어 크기
+		//마을 오브젝트------------------------------------------------
+		if(num == 0) {
+			Rectangle building1 = new Rectangle(300, 430, 90, 135);//건물크기
+			if(rect.intersects(building1)){canMove();}//충돌검사
+			Rectangle buildingLABGYM = new Rectangle(60, -12, 580, 145);//연구소,체육관
+			if(rect.intersects(buildingLABGYM)){canMove();}
+			Rectangle buildingyard = new Rectangle(220, 140, 260, 70);
+			if(rect.intersects(buildingyard)){canMove();}
+			Rectangle buildingyard2 = new Rectangle(530, 140, 320, 70);
+			if(rect.intersects(buildingyard2)){canMove();}
+			Rectangle buildingyard3 = new Rectangle(630, 200, 200, 80);
+			if(rect.intersects(buildingyard3)){canMove();}
+			Rectangle buildingcenter = new Rectangle(630, 350, 300, 250);
+			if(rect.intersects(buildingcenter)){canMove();}
+			Rectangle buildingcenterfen1 = new Rectangle(810, 600, 120, 40);
+			if(rect.intersects(buildingcenterfen1)){canMove();}
+			Rectangle buildingcenterfen2 = new Rectangle(560, 600, 200, 40);
+			if(rect.intersects(buildingcenterfen2)){canMove();}
+			Rectangle buildingcenterfen3 = new Rectangle(560, 460, 90, 150);
+			if(rect.intersects(buildingcenterfen3)){canMove();}
+			Rectangle bunsu = new Rectangle(470, 310, 60, 60);
+			if(rect.intersects(bunsu)){canMove();}
+			Rectangle gapan = new Rectangle(120, 350, 60, 60);
+			if(rect.intersects(gapan)){canMove();}
+			Rectangle lamp = new Rectangle(495, 390, 20, 60);
+			if(rect.intersects(lamp)){canMove();}
+			Rectangle post = new Rectangle(440, 495, 10, 20);
+			if(rect.intersects(post)){canMove();}
+			Rectangle forest1 = new Rectangle(0, 0, 50, 768);
+			if(rect.intersects(forest1)){canMove();}
+			Rectangle forest2 = new Rectangle(150, 690, 300, 30);
+			if(rect.intersects(forest2)){canMove();}
+			Rectangle forest3 = new Rectangle(560, 690, 500, 30);
+			if(rect.intersects(forest3)){canMove();}
+			Rectangle lake = new Rectangle(100, 470, 160, 120);
+			if(rect.intersects(lake)){canMove();}
+			Rectangle lake2 = new Rectangle(60, 580, 110, 40);
+			if(rect.intersects(lake2)){canMove();}
+			Rectangle lake3 = new Rectangle(140, 640, 1, 40);
+			if(rect.intersects(lake3)){canMove();}
+			Rectangle pump = new Rectangle(550, 270, 20, 20);
+			if(rect.intersects(pump)){canMove();}
+			Rectangle flower = new Rectangle(900, 183, 100, 25);
+			if(rect.intersects(flower)){canMove();}
+		}
+		//--------------------------------------------------------
+		Rectangle house = new Rectangle(860, 130, 30, 30);
+		if(rect.intersects(house)){
+			int result = JOptionPane.showConfirmDialog(null, "정말 종료하시겠습니까?", "종료 확인", JOptionPane.YES_NO_OPTION);
+			if(result == JOptionPane.YES_OPTION) {
+				System.exit(0);
+			}else {
+				y += 10;
+				keyUp = false;
+			}
+
+			
+
+		}//충돌검사
 
 	}
+
+	public void canMove() {
+		if(moveStatus == 0) {
+			y += movementSP;
+		}else if(moveStatus == 2) {
+			y -= movementSP;
+		}else if(moveStatus == 3) {
+			x += movementSP;
+		}else if(moveStatus == 1) {
+			x -= movementSP;
+		}
+	}
+
 	//SM_추가
 	//escCtn 필드 때문에 추가 Market에서 escCtn값을 변경하기 위해 사용   
 	public int getEscCtn() {
@@ -420,10 +504,13 @@ class Map extends JPanel implements Runnable, KeyListener {
 			sprint = false;
 			movementSP = 3;
 			break;
-			
+
 		}
 	}
 
 	public void keyTyped(KeyEvent e) {}
+
+
+
 
 }
