@@ -17,9 +17,9 @@ public class MCManager {
 		ItemDao id = new ItemDao(); 
 		//->MarketView에서 쓸 것
 		//최소수량, 최대수량
-		User user = new User("이름",new Date(),100000);
+		/*User user = new User("이름",new Date(),100000);
 		UserDao ud = new UserDao(user);
-		UserManager um = new UserManager(user,ud);
+		UserManager um = new UserManager(user,ud);*/
 		int check=0;//구매 하고 싶은 아이템 총량의 수량
 		
 		ItemManager im = new ItemManager();
@@ -30,7 +30,7 @@ public class MCManager {
 				check=(id.getItemList().get(i).getiPrice())*itemAmount;
 				//유저인벤에 있는 소지금액과 비교 후	
 				//소지금액<check : 소지금액이 적어 구매가 불가능 합니다 출력 : MarketView에서 바로 출력함
-				if(um.getUserGold()<check) {
+				if(true/*um.getUserGold()<check*/) {
 					//구매 불가
 					resultNo="응 못사";
 				}else {

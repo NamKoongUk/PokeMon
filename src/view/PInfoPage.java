@@ -65,7 +65,7 @@ public class PInfoPage extends JPanel{
 								+"\t체    력  : " + pHp + "\n"
 								);
 		}*/
-		BattleManager.showP(this);
+		//BattleManager.showP(this);        //활성화
 		
 		mf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {

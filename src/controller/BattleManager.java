@@ -5,14 +5,12 @@ import java.util.Random;
 import javax.swing.JTextArea;
 
 import model.dao.PokemonDao;
-import model.dao.UserDao;
 import model.vo.Pokemon;
 import view.PInfoPage;
 
 public class BattleManager {
 
 
-	private static UserDao ud = new UserDao();
 	private static PokemonDao pd = new PokemonDao();
 	private static PInfoPage pip;
 
@@ -23,13 +21,13 @@ public class BattleManager {
 
 		JTextArea[] jta = new JTextArea[4];
 
-		for(int i=0; i<ud.getUp_list().size(); i++) {
+		for(int i=0; i<UserManager.getUser().getUp_list().size(); i++) {
 			jta[i] = new JTextArea();
-			jta[i].setText("\t포켓몬 이름 : "+ ud.getUp_list().get(i).getpName() + "\n"
-					+"\t레    벨 : " + ud.getUp_list().get(i).getpLevel() + "\n"
-					+"\t공 격 력 : " + ud.getUp_list().get(i).getGrade() + "\n"
-					+"\t스 피 드 : " + ud.getUp_list().get(i).getpSpeed() + "\n"
-					+"\t체    력  : " +ud.getUp_list().get(i).getpHp() + "\n");
+			jta[i].setText("\t포켓몬 이름 : "+ UserManager.getUser().getUp_list().get(i).getpName() + "\n"
+					+"\t레    벨 : " + UserManager.getUser().getUp_list().get(i).getpLevel() + "\n"
+					+"\t공 격 력 : " + UserManager.getUser().getUp_list().get(i).getGrade() + "\n"
+					+"\t스 피 드 : " + UserManager.getUser().getUp_list().get(i).getpSpeed() + "\n"
+					+"\t체    력  : " +UserManager.getUser().getUp_list().get(i).getpHp() + "\n");
 			jta[i].setEditable(false);
 		}
 
@@ -68,8 +66,8 @@ public class BattleManager {
 	//포켓몬 캐치 기능
 	public static void catchP() {
 
-		for(int i=0; i<ud.getUi_list().size(); i++) {
-			if(ud.getUi_list().get(i).getiType() == 0) {
+		for(int i=0; i<UserManager.getUser().getUi_list().size(); i++) {
+			if(UserManager.getUser().getUi_list().get(i).getiType() == 0) {
 
 			}
 		}

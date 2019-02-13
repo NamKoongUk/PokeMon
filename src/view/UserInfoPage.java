@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,8 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.UserManager;
-import model.dao.UserDao;
-import model.vo.User;
 
 
 public class UserInfoPage extends JPanel implements KeyListener{
@@ -40,9 +37,9 @@ public class UserInfoPage extends JPanel implements KeyListener{
 		uip.setOpaque(false);
 		uip.setBounds(0, 0, 1024, 768);
 		
-		User user = new User("이름",new Date(),100000);
+		/*User user = new User("이름",new Date(),100000);
 		UserDao ud = new UserDao(user);
-		UserManager um = new UserManager(user,ud);
+		UserManager um = new UserManager(user,ud);*/
 		
 		userNameLabel = new JLabel();
 		playTimeLabel = new JLabel();
