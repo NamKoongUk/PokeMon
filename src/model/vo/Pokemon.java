@@ -20,7 +20,7 @@ public class Pokemon {
 	private int pMaxExp;	//최대 경험치, 맥스에 도달하면 레벨업
 	private int setExp;		//잡으면 얻게 되는 경험치
 	
-	private ArrayList[] pSkill;		//포켓몬 스킬
+	private ArrayList<Skill>[] pSkill;		//포켓몬 스킬
 	
 	
 	public Pokemon() {}
