@@ -2,11 +2,18 @@ package model.vo;
 
 public class Skill {
 
+	private String sName;
 	private int sType;		//스킬타입
 	private int sLevel;		//스킬을 습득할 수 있는 레벨
 	private int sAtt;		//스킬 공격력
 	
 	public Skill() {}
+	
+	public Skill(String sName, int sType, int sAtt) {
+		this.sName = sName;
+		this.sType = sType;
+		this.sAtt = sAtt;
+	}
 	
 	public Skill(int sType, int sLevel, int sAtt) {
 		this.sType = sType;

@@ -107,10 +107,10 @@ public class PInfoPage extends JPanel{
 		});
 
 		label.setBounds(450, 20, 200, 40);
-		pInfo[0].setBounds(180, 30, 300, 160);
-		pInfo[1].setBounds(520, 30, 300, 160);
-		pInfo[2].setBounds(180, 380, 300, 160);
-		pInfo[3].setBounds(520, 380, 300, 160);
+		pInfo[0].setBounds(260, 30, 300, 160);
+		pInfo[1].setBounds(600, 30, 300, 160);
+		pInfo[2].setBounds(260, 380, 300, 160);
+		pInfo[3].setBounds(600, 380, 300, 160);
 		
 		pInfoText[0].setBounds(180,220,300,130);
 		pInfoText[1].setBounds(520,220,300,130);
