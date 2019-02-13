@@ -11,25 +11,25 @@ import view.PInfoPage;
 
 public class BattleManager {
 
+
 	private static UserDao ud = new UserDao();
 	private static PokemonDao pd = new PokemonDao();
 	private static PInfoPage pip;
 
 
-	//ÇöÀç Æ÷ÄÏ¸ó º¸¿©ÁÖ´Â ºÎºĞ
+	//í˜„ì¬ í¬ì¼“ëª¬ ë³´ì—¬ì£¼ëŠ” ë¶€ë¶„
 	public static void showP(PInfoPage pip) {
 		BattleManager.pip = pip;
-
 
 		JTextArea[] jta = new JTextArea[4];
 
 		for(int i=0; i<ud.getUp_list().size(); i++) {
 			jta[i] = new JTextArea();
-			jta[i].setText("\tÆ÷ÄÏ¸ó ÀÌ¸§ : "+ ud.getUp_list().get(i).getpName() + "\n"
-					+"\t·¹    º§ : " + ud.getUp_list().get(i).getpLevel() + "\n"
-					+"\t°ø °İ ·Â : " + ud.getUp_list().get(i).getGrade() + "\n"
-					+"\t½º ÇÇ µå : " + ud.getUp_list().get(i).getpSpeed() + "\n"
-					+"\tÃ¼    ·Â  : " +ud.getUp_list().get(i).getpHp() + "\n");
+			jta[i].setText("\tí¬ì¼“ëª¬ ì´ë¦„ : "+ ud.getUp_list().get(i).getpName() + "\n"
+					+"\të ˆ    ë²¨ : " + ud.getUp_list().get(i).getpLevel() + "\n"
+					+"\tê³µ ê²© ë ¥ : " + ud.getUp_list().get(i).getGrade() + "\n"
+					+"\tìŠ¤ í”¼ ë“œ : " + ud.getUp_list().get(i).getpSpeed() + "\n"
+					+"\tì²´    ë ¥  : " +ud.getUp_list().get(i).getpHp() + "\n");
 			jta[i].setEditable(false);
 		}
 
@@ -38,7 +38,7 @@ public class BattleManager {
 
 	}
 
-	//Æ÷ÄÏ¸ó »ı¼º ±â´É
+	//í¬ì¼“ëª¬ ìƒì„± ê¸°ëŠ¥
 	public static void randomP() {
 
 
@@ -47,7 +47,7 @@ public class BattleManager {
 		Pokemon poke = pd.getpList().get(randomIndex);
 
 
-		//Æ÷ÄÏ¸ó ¼Ó¼º Á¤ÀÇ
+		//í¬ì¼“ëª¬ ì†ì„± ì •ì˜
 		poke.setpLevel(randomLevel);
 		poke.setExp(randomLevel);
 		poke.setpHp(randomLevel);
@@ -65,7 +65,7 @@ public class BattleManager {
 
 
 
-	//Æ÷ÄÏ¸ó Ä³Ä¡ ±â´É
+	//í¬ì¼“ëª¬ ìºì¹˜ ê¸°ëŠ¥
 	public static void catchP() {
 
 		for(int i=0; i<ud.getUi_list().size(); i++) {
