@@ -143,7 +143,6 @@ public class UserInvenPage extends JPanel {
 		this.add(itemListLabel);
 		
 		this.add(label);
-		
 	}
-	
+
 }

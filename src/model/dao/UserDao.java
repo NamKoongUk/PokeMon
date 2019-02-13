@@ -8,16 +8,27 @@ import javax.swing.ImageIcon;
 
 import model.vo.Item;
 import model.vo.Pokemon;
+import model.vo.User;
 
 public class UserDao {
 
-	
+	private User user;
 	private List<Pokemon> up_list = new ArrayList<Pokemon>(4);
 	private List<Item> ui_list = new ArrayList<Item>();
 	private List<Pokemon> tp_list = new ArrayList<Pokemon>();
 	private Image img = new ImageIcon("").getImage();
 	
 	public UserDao() {
+		ui_list.add(new Item());
+		up_list.add(new Pokemon("帕备府",104,0,false,img,1));
+		up_list.add(new Pokemon("帕备府",104,0,false,img,1));
+		up_list.add(new Pokemon("帕备府",104,0,false,img,1));
+		up_list.add(new Pokemon("帕备府",104,0,false,img,1));
+	}
+	
+	
+	public UserDao(User user) {
+		this.user = user;
 		ui_list.add(new Item());
 		up_list.add(new Pokemon("帕备府",104,0,false,img,1));
 		up_list.add(new Pokemon("帕备府",104,0,false,img,1));
@@ -65,6 +76,16 @@ public class UserDao {
 	}
 	public void addPokemon2(Pokemon poke) {
 		tp_list.add(poke);
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	
