@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.UserManager;
+import model.vo.User;
 
 public class StartPage extends JPanel{
 
@@ -38,7 +39,7 @@ public class StartPage extends JPanel{
 	         public void mousePressed(MouseEvent e) {
 	            
 	            String result = JOptionPane.showInputDialog("모험을 시작할 이름을 정해주세요!");
-	            UserManager.createUser(result);
+	            new User(result);
 	            
 	            /*mf.remove(stp);
 	            m.setVisible(true);

@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.UserManager;
+import model.vo.User;
 
 
 public class UserInfoPage extends JPanel implements KeyListener{
@@ -46,7 +47,7 @@ public class UserInfoPage extends JPanel implements KeyListener{
 		userNameLabel.setText(UserManager.viewUserName());
 		playTimeLabel.setText(UserManager.viewUserTime());
 		createTime = new JLabel();
-		createTime.setText("캐릭터 생성날짜 : " + UserManager.viewCreateTime());
+		createTime.setText("캐릭터 생성날짜 : " + User.getuDate());
 		
 		mf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {

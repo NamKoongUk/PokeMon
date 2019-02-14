@@ -6,68 +6,59 @@ import java.util.List;
 
 public class User {
 	
-	private String uName;
-	private Date uDate;
-	private int uGold;
-	private List<Pokemon> up_list = new ArrayList<Pokemon>(4);
-	private List<Item> ui_list = new ArrayList<Item>();
-	private List<Pokemon> tp_list = new ArrayList<Pokemon>();
+	private static String uName;
+	private static Date uDate;
+	private static int uGold;
+	private static List<Pokemon> up_list;
+	private static List<Item> ui_list;
+	private static List<Pokemon> tp_list;
 	
-	public List<Pokemon> getUp_list() {
-		return up_list;
+	public User(String name) {
+		User.uName = name;
+		User.uDate = new Date();
+		User.uGold = 3000;
+		User.ui_list = new ArrayList<Item>();
+		User.up_list = new ArrayList<Pokemon>(4);
+		User.tp_list = new ArrayList<Pokemon>();
 	}
-
-	public void setUp_list(List<Pokemon> up_list) {
-		this.up_list = up_list;
-	}
-
-	public List<Item> getUi_list() {
-		return ui_list;
-	}
-
-	public void setUi_list(List<Item> ui_list) {
-		this.ui_list = ui_list;
-	}
-
-	public List<Pokemon> getTp_list() {
-		return tp_list;
-	}
-
-	public void setTp_list(List<Pokemon> tp_list) {
-		this.tp_list = tp_list;
-	}
-
-	public User() {}
 	
-	public User(String uName, Date uDate, int uGold) {
-		this.uName = uName;
-		this.uDate = uDate;
-		this.uGold = uGold;
-	}
-
-	public String getuName() {
+	public static String getuName() {
 		return uName;
 	}
-
-	public Date getuDate() {
+	public static void setuName(String uName) {
+		User.uName = uName;
+	}
+	public static Date getuDate() {
 		return uDate;
 	}
-
-	public int getuGold() {
+	public static void setuDate(Date uDate) {
+		User.uDate = uDate;
+	}
+	public static int getuGold() {
 		return uGold;
 	}
-
-	public void setuName(String uName) {
-		this.uName = uName;
+	public static void setuGold(int uGold) {
+		User.uGold = uGold;
 	}
-
-	public void setuDate(Date uDate) {
-		this.uDate = uDate;
+	public static List<Pokemon> getUp_list() {
+		return up_list;
 	}
-
-	public void setuGold(int uGold) {
-		this.uGold = uGold;
+	public static void setUp_list(List<Pokemon> up_list) {
+		User.up_list = up_list;
 	}
+	public static List<Item> getUi_list() {
+		return ui_list;
+	}
+	public static void setUi_list(List<Item> ui_list) {
+		User.ui_list = ui_list;
+	}
+	public static List<Pokemon> getTp_list() {
+		return tp_list;
+	}
+	public static void setTp_list(List<Pokemon> tp_list) {
+		User.tp_list = tp_list;
+	}
+	
 	
 	
 
